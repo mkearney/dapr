@@ -1,0 +1,15 @@
+Package: ifl
+Title: pkg
+Version: 0.0.1
+Authors@R: 
+    person(given = "Michael W.",
+           family = "Kearney",
+           role = c("aut", "cre"),
+           email = "kearneymw@missouri.edu",
+           comment = c(ORCID = "0000-0002-0730-4694"))
+Description: Describe pkg
+License: GPL-3
+Encoding: UTF-8
+Langauge: en
+LazyData: true
+RoxygenNote: 6.1.0

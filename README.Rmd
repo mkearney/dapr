@@ -1,0 +1,82 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE, collapse = TRUE, comment = "#>")
+library(ifl)
+```
+# ifl
+
+[![Build status](https://travis-ci.org/mkearney/ifl.svg?branch=master)](https://travis-ci.org/mkearney/ifl)
+[![CRAN status](https://www.r-pkg.org/badges/version/ifl)](https://cran.r-project.org/package=ifl)
+[![Coverage Status](https://codecov.io/gh/mkearney/ifl/branch/master/graph/badge.svg)](https://codecov.io/gh/mkearney/ifl?branch=master)
+
+<!--#![Downloads](https://cranlogs.r-pkg.org/badges/ifl)
+#![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/ifl)-->
+[![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+
+Iterating for loops. A dependency-free purrr-like iterator.
+
+## Installation
+
+Install the development version from Github with:
+
+``` r
+## install remotes pkg if not already
+if (!requireNamespace("remotes")) {
+  install.packages("remotes")
+}
+
+## install from github
+remotes::install_github("mkearney/ifl")
+```
+
+
+## Mapping functions
+
+### `vap_dbl()`
+
+Iterate over input and return double.
+
+```{r}
+## double
+vap_dbl(rnorm(5), round, 3)
+```
+
+### `vap_chr()`
+
+Iterate over input and return character.
+
+Also, useful shortcut: use formulas with `.x`, just like with the
+[**{purrr}**](https://purrr.tidyverse.org) package
+
+```{r}
+## character
+vap_chr(letters[1:5], ~ paste0(.x, "."))
+```
+
+### `vap_lgl()`
+
+Iterate over input and return logical.
+
+
+```{r}
+## logical
+vap_lgl(letters[1:5], ~ .x %in% c("a", "e", "i", "o", "u"))
+```
+
+
+### `lap()`
+
+Iterate over input and return list(s).
+
+```{r}
+## list of strings
+lap(letters[1:5], ~ paste0(.x, "."))
+
+## list of columns
+lap(mtcars[1:5, 1:5], as.integer)
+```
