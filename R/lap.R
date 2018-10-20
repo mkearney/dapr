@@ -25,9 +25,9 @@ lap.default <- function(.x, .f, ...) {
   for (i in seq_along(.x)) {
     assign(".x", .x[[i]], envir = e)
     if (is_lang(.f)) {
-      o[i] <- as_lst(eval(.f[[2]], envir = e))
+      o[[i]] <- as_lst(eval(.f[[2]], envir = e))
     } else {
-      o[i] <- as_lst(do.call(.f, list(.x[[i]], ...)))
+      o[[i]] <- as_lst(do.call(.f, list(.x[[i]], ...)))
     }
   }
   o
