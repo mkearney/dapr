@@ -19,11 +19,5 @@ test_that("lap works", {
 
   expect_true(is.data.frame(dapc_if(d, is.numeric, ~ round(.x, 3))))
   expect_true(is.data.frame(dapc_if(d, is.numeric, round, 3)))
-}
 
-
-
-
-
-  expect_equal(2 * 2, 4)
-})
+  }
