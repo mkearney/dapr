@@ -2,18 +2,9 @@
 % Please edit documentation in R/lap.R
 \name{lap}
 \alias{lap}
-\alias{dapc}
-\alias{dapr}
-\alias{dapc_if}
 \title{List apply}
 \usage{
 lap(.data, .f, ...)
-
-dapc(.data, .f, ...)
-
-dapr(.data, .f, ...)
-
-dapc_if(.data, .predicate, .f, ...)
 }
 \arguments{
 \item{.data}{Input vector}
@@ -21,8 +12,6 @@ dapc_if(.data, .predicate, .f, ...)
 \item{.f}{Function or formula call that assumes element is .x}
 
 \item{...}{Other args passed to function call}
-
-\item{.predicate}{Logical vector or expression evaluated to expression.}
 }
 \value{
 A list

@@ -34,61 +34,72 @@ if (!requireNamespace("remotes")) {
 remotes::install_github("mkearney/dapr")
 ```
 
+## {dapr} vs. {base} & {purrr}?
+**{dapr}** provides the ease and consistency of [**{purrr}**](https://purrr.tidyverse.org),
+including use of `~` and `.x`, without all the dependencies. In other words,
+when you want a purrr-like experience but you need a lightweight solution.
 
-## Mapping functions
+## Vectors
 
-### `vap_dbl()`
-
-Iterate over input and return double.
-
-```{r}
-## double
-vap_dbl(rnorm(5), round, 3)
-```
-
-### `vap_chr()`
-
-Iterate over input and return character.
-
-Also, useful shortcut: use formulas with `.x`, just like with the
-[**{purrr}**](https://purrr.tidyverse.org) package
++ **`vap_dbl()`** Iterate and return **numeric** vector.
++ **`vap_int()`** Iterate and return **integer** vector.
++ **`vap_lgl()`** Iterate and return **logical** vector.
++ **`vap_chr()`** Iterate and return **character** vector.
 
 ```{r}
-## character
-vap_chr(letters[1:3], ~ paste0(.x, "."))
-```
+## create data
+set.seed(12)
+d <- replicate(5, rnorm(10), simplify = FALSE)
+e <- replicate(5, sample(letters, 10), simplify = FALSE)
 
-### `vap_lgl()`
+## numeric
+vap_dbl(d, ~ mean(.x))
 
-Iterate over input and return logical.
+## integer
+vap_int(d, length)
 
-
-```{r}
 ## logical
-vap_lgl(letters[1:3], ~ .x %in% c("a", "e", "i", "o", "u"))
+vap_lgl(d, ~ max(.x) > 3)
+
+## character
+vap_chr(e, paste, collapse = "")
 ```
 
-
-### `lap()`
-
-Iterate over input and return list(s).
+## Lists
++ **`lap()`** Iterate and return a **list** vector.
 
 ```{r}
 ## list of strings
-lap(letters[1:3], ~ paste0(.x, "."))
+lap(e[1:3], ~ paste0(.x, "."))
 
 ## list of columns
-lap(mtcars[1:3, 1:3], as.integer)
+lap(e[1:3], toupper)
 ```
 
-### `dap()`
-
-Iterate over input and return list(s).
+## Data frames
++ **`dap()`** Iterate (over columns) and return a **data frame**.
++ **`dapc()`** Iterate over **columns**.
++ **`dapr()`** Iterate over **rows**.
++ **`dapc_if()`** Iterate over **columns** meeting logical test.
 
 ```{r}
-## round columns
-dapc(mtcars[1:3], ~ round(.x, 2))
+## some data
+d <- data.frame(
+  a = letters[1:5],
+  b = rnorm(5),
+  c = rnorm(5),
+  stringsAsFactors = FALSE
+)
 
-## round columns
-dapc(mtcars[1:3], round, 3)
+## default applies to columns
+dap(d[-1], ~ round(.x, 2))
+
+## column explicit
+dapc(d[-1], ~ round(.x, 2))
+
+## rows
+dapr(d[-1], round, 3)
+
+## predicate columns
+dapc_if(d, is.numeric, ~ round(.x, 1))
 ```

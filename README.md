@@ -31,143 +31,126 @@ if (!requireNamespace("remotes")) {
 remotes::install_github("mkearney/dapr")
 ```
 
-## Mapping functions
+## {dapr} vs. {base} & {purrr}?
 
-### `vap_dbl()`
+**{dapr}** provides the ease and consistency of
+[**{purrr}**](https://purrr.tidyverse.org), including use of `~` and
+`.x`, without all the dependencies. In other words, when you want a
+purrr-like experience but you need a lightweight solution.
 
-Iterate over input and return double.
+## Vectors
 
-``` r
-## double
-vap_dbl(rnorm(5), round, 3)
-#> [1] -0.109  0.512 -0.786 -0.175  1.128
-```
+  - **`vap_dbl()`** Iterate and return **numeric** vector.
+  - **`vap_int()`** Iterate and return **integer** vector.
+  - **`vap_lgl()`** Iterate and return **logical** vector.
+  - **`vap_chr()`** Iterate and return **character** vector.
 
-### `vap_chr()`
-
-Iterate over input and return character.
-
-Also, useful shortcut: use formulas with `.x`, just like with the
-[**{purrr}**](https://purrr.tidyverse.org) package
+<!-- end list -->
 
 ``` r
-## character
-vap_chr(letters[1:3], ~ paste0(.x, "."))
-#> [1] "a." "b." "c."
-```
+## create data
+set.seed(12)
+d <- replicate(5, rnorm(10), simplify = FALSE)
+e <- replicate(5, sample(letters, 10), simplify = FALSE)
 
-### `vap_lgl()`
+## numeric
+vap_dbl(d, ~ mean(.x))
+#> [1] -0.4672139 -0.1952043  0.2087615 -0.0134176 -0.2475739
 
-Iterate over input and return logical.
+## integer
+vap_int(d, length)
+#> [1] 10 10 10 10 10
 
-``` r
 ## logical
-vap_lgl(letters[1:3], ~ .x %in% c("a", "e", "i", "o", "u"))
-#> [1]  TRUE FALSE FALSE
+vap_lgl(d, ~ max(.x) > 3)
+#> [1] FALSE FALSE FALSE FALSE FALSE
+
+## character
+vap_chr(e, paste, collapse = "")
+#> [1] "mvktopwdci" "thqbcmiulp" "rwuvznlmoj" "ufxdasqmpk" "hvoqzmiwty"
 ```
 
-### `lap()`
+## Lists
 
-Iterate over input and return list(s).
+  - **`lap()`** Iterate and return a **list** vector.
+
+<!-- end list -->
 
 ``` r
 ## list of strings
-lap(letters[1:3], ~ paste0(.x, "."))
+lap(e[1:3], ~ paste0(.x, "."))
 #> [[1]]
-#> [1] "a."
+#>  [1] "m." "v." "k." "t." "o." "p." "w." "d." "c." "i."
 #> 
 #> [[2]]
-#> [1] "b."
+#>  [1] "t." "h." "q." "b." "c." "m." "i." "u." "l." "p."
 #> 
 #> [[3]]
-#> [1] "c."
+#>  [1] "r." "w." "u." "v." "z." "n." "l." "m." "o." "j."
 
 ## list of columns
-lap(mtcars[1:3, 1:3], as.integer)
-#> $mpg
-#> [1] 21 21 22
+lap(e[1:3], toupper)
+#> [[1]]
+#>  [1] "M" "V" "K" "T" "O" "P" "W" "D" "C" "I"
 #> 
-#> $cyl
-#> [1] 6 6 4
+#> [[2]]
+#>  [1] "T" "H" "Q" "B" "C" "M" "I" "U" "L" "P"
 #> 
-#> $disp
-#> [1] 160 160 108
+#> [[3]]
+#>  [1] "R" "W" "U" "V" "Z" "N" "L" "M" "O" "J"
 ```
 
-### `dap()`
+## Data frames
 
-Iterate over input and return list(s).
+  - **`dap()`** Iterate (over columns) and return a **data frame**.
+  - **`dapc()`** Iterate over **columns**.
+  - **`dapr()`** Iterate over **rows**.
+  - **`dapc_if()`** Iterate over **columns** meeting logical test.
+
+<!-- end list -->
 
 ``` r
-## round columns
-dapc(mtcars[1:3], ~ round(.x, 2))
-#>                      mpg cyl  disp
-#> Mazda RX4           21.0   6 160.0
-#> Mazda RX4 Wag       21.0   6 160.0
-#> Datsun 710          22.8   4 108.0
-#> Hornet 4 Drive      21.4   6 258.0
-#> Hornet Sportabout   18.7   8 360.0
-#> Valiant             18.1   6 225.0
-#> Duster 360          14.3   8 360.0
-#> Merc 240D           24.4   4 146.7
-#> Merc 230            22.8   4 140.8
-#> Merc 280            19.2   6 167.6
-#> Merc 280C           17.8   6 167.6
-#> Merc 450SE          16.4   8 275.8
-#> Merc 450SL          17.3   8 275.8
-#> Merc 450SLC         15.2   8 275.8
-#> Cadillac Fleetwood  10.4   8 472.0
-#> Lincoln Continental 10.4   8 460.0
-#> Chrysler Imperial   14.7   8 440.0
-#> Fiat 128            32.4   4  78.7
-#> Honda Civic         30.4   4  75.7
-#> Toyota Corolla      33.9   4  71.1
-#> Toyota Corona       21.5   4 120.1
-#> Dodge Challenger    15.5   8 318.0
-#> AMC Javelin         15.2   8 304.0
-#> Camaro Z28          13.3   8 350.0
-#> Pontiac Firebird    19.2   8 400.0
-#> Fiat X1-9           27.3   4  79.0
-#> Porsche 914-2       26.0   4 120.3
-#> Lotus Europa        30.4   4  95.1
-#> Ford Pantera L      15.8   8 351.0
-#> Ferrari Dino        19.7   6 145.0
-#> Maserati Bora       15.0   8 301.0
-#> Volvo 142E          21.4   4 121.0
+## some data
+d <- data.frame(
+  a = letters[1:5],
+  b = rnorm(5),
+  c = rnorm(5),
+  stringsAsFactors = FALSE
+)
 
-## round columns
-dapc(mtcars[1:3], round, 3)
-#>                      mpg cyl  disp
-#> Mazda RX4           21.0   6 160.0
-#> Mazda RX4 Wag       21.0   6 160.0
-#> Datsun 710          22.8   4 108.0
-#> Hornet 4 Drive      21.4   6 258.0
-#> Hornet Sportabout   18.7   8 360.0
-#> Valiant             18.1   6 225.0
-#> Duster 360          14.3   8 360.0
-#> Merc 240D           24.4   4 146.7
-#> Merc 230            22.8   4 140.8
-#> Merc 280            19.2   6 167.6
-#> Merc 280C           17.8   6 167.6
-#> Merc 450SE          16.4   8 275.8
-#> Merc 450SL          17.3   8 275.8
-#> Merc 450SLC         15.2   8 275.8
-#> Cadillac Fleetwood  10.4   8 472.0
-#> Lincoln Continental 10.4   8 460.0
-#> Chrysler Imperial   14.7   8 440.0
-#> Fiat 128            32.4   4  78.7
-#> Honda Civic         30.4   4  75.7
-#> Toyota Corolla      33.9   4  71.1
-#> Toyota Corona       21.5   4 120.1
-#> Dodge Challenger    15.5   8 318.0
-#> AMC Javelin         15.2   8 304.0
-#> Camaro Z28          13.3   8 350.0
-#> Pontiac Firebird    19.2   8 400.0
-#> Fiat X1-9           27.3   4  79.0
-#> Porsche 914-2       26.0   4 120.3
-#> Lotus Europa        30.4   4  95.1
-#> Ford Pantera L      15.8   8 351.0
-#> Ferrari Dino        19.7   6 145.0
-#> Maserati Bora       15.0   8 301.0
-#> Volvo 142E          21.4   4 121.0
+## default applies to columns
+dap(d[-1], ~ round(.x, 2))
+#>       b     c
+#> 1 -0.63  0.00
+#> 2 -1.27 -1.27
+#> 3 -0.38 -0.20
+#> 4  0.52  1.16
+#> 5 -0.18 -0.02
+
+## column explicit
+dapc(d[-1], ~ round(.x, 2))
+#>       b     c
+#> 1 -0.63  0.00
+#> 2 -1.27 -1.27
+#> 3 -0.38 -0.20
+#> 4  0.52  1.16
+#> 5 -0.18 -0.02
+
+## rows
+dapr(d[-1], round, 3)
+#>        b      c
+#> 1 -0.634  0.004
+#> 2 -1.271 -1.274
+#> 3 -0.384 -0.202
+#> 4  0.517  1.164
+#> 5 -0.178 -0.023
+
+## predicate columns
+dapc_if(d, is.numeric, ~ round(.x, 1))
+#>   a    b    c
+#> 1 a -0.6  0.0
+#> 2 b -1.3 -1.3
+#> 3 c -0.4 -0.2
+#> 4 d  0.5  1.2
+#> 5 e -0.2  0.0
 ```

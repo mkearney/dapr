@@ -6,7 +6,6 @@
 #' @param .data Input vector
 #' @param .f Function or formula call that assumes element is .x
 #' @param ... Other args passed to function call
-#' @param .predicate Logical vector or expression evaluated to expression.
 #' @return A list
 #' @examples
 #'
@@ -27,62 +26,4 @@ lap.default <- function(.data, .f, ...) {
   } else {
     lapply(.data, .f, ...)
   }
-}
-
-
-#' @rdname lap
-#' @export
-dapc <- function(.data, .f, ...) use_method("dapc", ...)
-
-dapc.default <- function(.data, .f, ...) {
-  if (is_lang(.f)) {
-    .data[] <- lapply(.data, function(.x) {
-      eval(.f[[2]], envir = new.env())
-    })
-  } else {
-    .data[] <- local(lapply(.data, .f, ...), envir = new.env())
-  }
-  .data
-}
-
-#' @rdname lap
-#' @export
-dapr <- function(.data, .f, ...) use_method("dapr", ...)
-
-dapr.default <- function(.data, .f, ...) {
-  if (is_lang(.f)) {
-    .data[seq_len(nrow(.data)), ] <- t(apply(.data, 1, function(.x) {
-      eval(.f[[2]], envir = new.env())
-    }))
-  } else {
-    .data[seq_len(nrow(.data)), ] <- t(apply(.data, 1, .f, ...))
-  }
-  .data
-}
-
-
-#' @rdname lap
-#' @inheritParams lap
-#' @export
-dapc_if <- function(.data, .predicate, .f, ...) use_method("dapc_if", ...)
-
-dapc_if.default <- function(.data, .predicate, .f, ...) {
-  if (is.logical(.predicate)) {
-    lg <- .predicate
-  } else if (is_lang(.predicate)) {
-    lg <- vapply(.data, function(.x) {
-      eval(.predicate[[2]], envir = new.env())
-    }, logical(1))
-  } else {
-    lg <- vapply(.data, .predicate, logical(1))
-  }
-  stopifnot(is.logical(lg))
-  if (is_lang(.f)) {
-    .data[lg] <- lapply(.data[lg], function(.x) {
-      eval(.f[[2]], envir = new.env())
-    })
-  } else {
-    .data[lg] <- lapply(.data[lg], .f, ...)
-  }
-  .data
 }

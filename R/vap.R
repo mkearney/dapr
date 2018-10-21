@@ -7,20 +7,16 @@
 #' @param ... Args
 #' @export
 #' @rdname vap
-vap_chr <- function(.x, .f, ...) use_method("vap_chr", ...)
+vap_chr <- function(.data, .f, ...) use_method("vap_chr", ...)
 
-vap_chr.default <- function(.x, .f, ...) {
-  e <- new.env()
-  o <- character(length(.x))
-  for (i in seq_along(.x)) {
-    assign(".x", .x[[i]], envir = e)
-    if (is_lang(.f)) {
-      o[i] <- as_chr(eval(.f[[2]], envir = e))
-    } else {
-      o[i] <- as_chr(do.call(.f, list(.x[[i]], ...)))
-    }
+vap_chr.default <- function(.data, .f, ...) {
+  if (is_lang(.f)) {
+    vapply(.data, function(.x) {
+      eval(.f[[2]], envir = new.env())
+    }, FUN.VALUE = character(1))
+  } else {
+    vapply(.data, .f, ..., FUN.VALUE = character(1))
   }
-  o
 }
 
 
@@ -28,8 +24,8 @@ vap_chr.default <- function(.x, .f, ...) {
 #'
 #' Iterate over input and return double(s)
 #'
-#' @param .x Input vector
-#' @param .f Function or formula call that assumes element is .x
+#' @param .data Input vector
+#' @param .f Function or formula call that assumes element is .data
 #' @return A double vector
 #' @export
 #' @examples
@@ -43,21 +39,20 @@ vap_chr.default <- function(.x, .f, ...) {
 #' ## logical
 #' vap_lgl(letters, ~ .x %in% c("a", "e", "i", "o", "u"))
 #'
+#' ## integer
+#' vap_int(rnorm(5), ~ as.integer(.x))
+#'
 #' @rdname vap
-vap_dbl <- function(.x, .f, ...) use_method("vap_dbl", ...)
+vap_dbl <- function(.data, .f, ...) use_method("vap_dbl", ...)
 
-vap_dbl.default <- function(.x, .f, ...) {
-  e <- new.env()
-  o <- double(length(.x))
-  for (i in seq_along(.x)) {
-    assign(".x", .x[[i]], envir = e)
-    if (is_lang(.f)) {
-      o[i] <- as_dbl(eval(.f[[2]], envir = e))
-    } else {
-      o[i] <- as_dbl(do.call(.f, list(.x[[i]], ...)))
-    }
+vap_dbl.default <- function(.data, .f, ...) {
+  if (is_lang(.f)) {
+    vapply(.data, function(.x) {
+      eval(.f[[2]], envir = new.env())
+    }, FUN.VALUE = numeric(1))
+  } else {
+    vapply(.data, .f, ..., FUN.VALUE = numeric(1))
   }
-  o
 }
 
 
@@ -71,18 +66,36 @@ vap_dbl.default <- function(.x, .f, ...) {
 #' @return A logical vector
 #' @export
 #' @rdname vap
-vap_lgl <- function(.x, .f, ...) use_method("vap_lgl", ...)
+vap_lgl <- function(.data, .f, ...) use_method("vap_lgl", ...)
 
-vap_lgl.default <- function(.x, .f, ...) {
-  e <- new.env()
-  o <- logical(length(.x))
-  for (i in seq_along(.x)) {
-    assign(".x", .x[[i]], envir = e)
-    if (is_lang(.f)) {
-      o[i] <- as_lgl(eval(.f[[2]], envir = e))
-    } else {
-      o[i] <- as_lgl(do.call(.f, list(.x[[i]], ...)))
-    }
+vap_lgl.default <- function(.data, .f, ...) {
+  if (is_lang(.f)) {
+    vapply(.data, function(.x) {
+      eval(.f[[2]], envir = new.env())
+    }, FUN.VALUE = logical(1))
+  } else {
+    vapply(.data, .f, ..., FUN.VALUE = logical(1))
   }
-  o
+}
+
+
+
+#' Vector apply integer
+#'
+#' Iterate over input and return integer(s)
+#'
+#' @inheritParams vap_dbl
+#' @return A integer vector
+#' @export
+#' @rdname vap
+vap_int <- function(.data, .f, ...) use_method("vap_int", ...)
+
+vap_int.default <- function(.data, .f, ...) {
+  if (is_lang(.f)) {
+    vapply(.data, function(.x) {
+      eval(.f[[2]], envir = new.env())
+    }, FUN.VALUE = integer(1))
+  } else {
+    vapply(.data, .f, ..., FUN.VALUE = integer(1))
+  }
 }

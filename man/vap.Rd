@@ -4,18 +4,21 @@
 \alias{vap_chr}
 \alias{vap_dbl}
 \alias{vap_lgl}
+\alias{vap_int}
 \title{Vector apply character}
 \usage{
-vap_chr(.x, .f, ...)
+vap_chr(.data, .f, ...)
 
-vap_dbl(.x, .f, ...)
+vap_dbl(.data, .f, ...)
 
-vap_lgl(.x, .f, ...)
+vap_lgl(.data, .f, ...)
+
+vap_int(.data, .f, ...)
 }
 \arguments{
-\item{.x}{Input vector}
+\item{.data}{Input vector}
 
-\item{.f}{Function or formula call that assumes element is .x}
+\item{.f}{Function or formula call that assumes element is .data}
 
 \item{...}{Args}
 }
@@ -25,6 +28,8 @@ A character vector
 A double vector
 
 A logical vector
+
+A integer vector
 }
 \description{
 Iterate over input and return character(s)
@@ -32,6 +37,8 @@ Iterate over input and return character(s)
 Iterate over input and return double(s)
 
 Iterate over input and return logical(s)
+
+Iterate over input and return integer(s)
 }
 \examples{
 
@@ -43,5 +50,8 @@ vap_dbl(rnorm(4), round, 3)
 
 ## logical
 vap_lgl(letters, ~ .x \%in\% c("a", "e", "i", "o", "u"))
+
+## integer
+vap_int(rnorm(5), ~ as.integer(.x))
 
 }
