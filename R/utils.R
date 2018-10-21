@@ -1,57 +1,17 @@
-as_lgl <- function(expr) {
-  o <- tryCatch(expr, error = function(e) NULL)
-  if (length(o) == 0) {
-    o <- NA
-  }
-  if (!is.logical(o)) {
-    o <- tryCatch(as.logical(o), error = function(e) NULL)
-  }
-  if (length(o) != 1L) stop("must return 1 lgl")
-  o
-}
-
-
-
-is_closure <- function(x) identical(typeof(x), "closure")
 is_lang <- function(x) identical(typeof(x), "language")
 
-
-
-
-as_dbl <- function(expr) {
-  o <- tryCatch(expr, error = function(e) NULL)
-  if (length(o) == 0) {
-    o <- NA_real_
-  }
-  if (!is.double(o)) {
-    o <- tryCatch(as.double(o), error = function(e) NULL)
-  }
-  if (length(o) != 1L) stop("must return 1 dbl")
-  o
+use_method <- function(method, ...) {
+  args <- c(as.list(parent.frame(), all.names = TRUE), dots(...))
+  args <- args[grep("\\.\\.\\.", names(args), invert = TRUE)]
+  do_call(method, args)
 }
 
-
-as_chr <- function(expr) {
-  o <- tryCatch(expr, error = function(e) NULL)
-  if (length(o) == 0) {
-    o <- NA_character_
-  }
-  if (!is.character(o)) {
-    o <- tryCatch(as.character(o), error = function(e) NULL)
-  }
-  if (length(o) != 1L) stop("must return 1 chr")
-  o
+do_call <- function(method, args) {
+  do.call(default_method(method), args, quote = TRUE)
 }
 
+default_method <- function(x) paste0(x, ".default")
 
-
-as_lst <- function(expr) {
-  o <- tryCatch(expr, error = function(e) NULL)
-  if (length(o) == 0) {
-    o <- list()
-  }
-  if (is.list(o) && length(o) > 1) {
-    o <- list(o)
-  }
-  o
+dots <- function(...) {
+  eval(substitute(alist(...)), envir = parent.frame())
 }
