@@ -3,8 +3,9 @@
 #'
 #' Iterate over input and return list(s)
 #'
-#' @param .x Input vector
+#' @param .data Input vector
 #' @param .f Function or formula call that assumes element is .x
+#' @param ... Other args passed to function call
 #' @return A list
 #' @examples
 #'
@@ -17,7 +18,6 @@
 #' @export
 lap <- function(.data, .f, ...) use_method("lap", ...)
 
-#' @export
 lap.default <- function(.data, .f, ...) {
   if (is_lang(.f)) {
     lapply(.data, function(.x) {
@@ -29,17 +29,10 @@ lap.default <- function(.data, .f, ...) {
 }
 
 
-#' @export
-lap.tbl_df <- function(.data, .f, ...) {
-  .data <- as.data.frame(.data)
-  lap(.data, .f, ...)
-}
-
 #' @rdname lap
 #' @export
 dapc <- function(.data, .f, ...) use_method("dapc", ...)
 
-#' @export
 dapc.default <- function(.data, .f, ...) {
   if (is_lang(.f)) {
     .data[] <- lapply(.data, function(.x) {
@@ -55,7 +48,6 @@ dapc.default <- function(.data, .f, ...) {
 #' @export
 dapr <- function(.data, .f, ...) use_method("dapr", ...)
 
-#' @export
 dapr.default <- function(.data, .f, ...) {
   if (is_lang(.f)) {
     .data[seq_len(nrow(.data)), ] <- t(apply(.data, 1, function(.x) {
@@ -72,7 +64,6 @@ dapr.default <- function(.data, .f, ...) {
 #' @export
 dapc_if <- function(.data, .predicate, .f, ...) use_method("dapc_if", ...)
 
-#' @export
 dapc_if.default <- function(.data, .predicate, .f, ...) {
   if (is.logical(.predicate)) {
     lg <- .predicate
