@@ -6,6 +6,7 @@
 #' @param .data Input vector
 #' @param .f Function or formula call that assumes element is .x
 #' @param ... Other args passed to function call
+#' @param .predicate Logical vector or expression evaluated to expression.
 #' @return A list
 #' @examples
 #'
@@ -62,7 +63,6 @@ dapr.default <- function(.data, .f, ...) {
 
 #' @rdname lap
 #' @inheritParams lap
-#' @param .predicate Logical vector or expression evaluated to expression.
 #' @export
 dapc_if <- function(.data, .predicate, .f, ...) use_method("dapc_if", ...)
 
