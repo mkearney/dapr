@@ -6,16 +6,16 @@ output: github_document
 
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(echo = TRUE, collapse = TRUE, comment = "#>")
-library(ifl)
+library(dapr)
 ```
-# ifl
+# dapr
 
-[![Build status](https://travis-ci.org/mkearney/ifl.svg?branch=master)](https://travis-ci.org/mkearney/ifl)
-[![CRAN status](https://www.r-pkg.org/badges/version/ifl)](https://cran.r-project.org/package=ifl)
-[![Coverage Status](https://codecov.io/gh/mkearney/ifl/branch/master/graph/badge.svg)](https://codecov.io/gh/mkearney/ifl?branch=master)
+[![Build status](https://travis-ci.org/mkearney/dapr.svg?branch=master)](https://travis-ci.org/mkearney/dapr)
+[![CRAN status](https://www.r-pkg.org/badges/version/dapr)](https://cran.r-project.org/package=dapr)
+[![Coverage Status](https://codecov.io/gh/mkearney/dapr/branch/master/graph/badge.svg)](https://codecov.io/gh/mkearney/dapr?branch=master)
 
-<!--#![Downloads](https://cranlogs.r-pkg.org/badges/ifl)
-#![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/ifl)-->
+<!--#![Downloads](https://cranlogs.r-pkg.org/badges/dapr)
+#![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/dapr)-->
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 
 Iterating for loops. A dependency-free purrr-like iterator.
@@ -31,7 +31,7 @@ if (!requireNamespace("remotes")) {
 }
 
 ## install from github
-remotes::install_github("mkearney/ifl")
+remotes::install_github("mkearney/dapr")
 ```
 
 

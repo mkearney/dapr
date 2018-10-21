@@ -1,5 +1,5 @@
-Package: ifl
-Title: pkg
+Package: dapr
+Title: Easy Apply Functions
 Version: 0.0.1
 Authors@R: 
     person(given = "Michael W.",
@@ -7,11 +7,13 @@ Authors@R:
            role = c("aut", "cre"),
            email = "kearneymw@missouri.edu",
            comment = c(ORCID = "0000-0002-0730-4694"))
-Description: Describe pkg
+Description: Iterate over elements of various objects using
+    dependency-free purrr-like apply functions designed for 
+    ease of use.
 License: GPL-3
 Encoding: UTF-8
 Langauge: en
 LazyData: true
 RoxygenNote: 6.1.0
-URL: https://github.com/mkearney/ifl
-BugReports: https://github.com/mkearney/ifl/issues
+URL: https://github.com/mkearney/dapr
+BugReports: https://github.com/mkearney/dapr/issues

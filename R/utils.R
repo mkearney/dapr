@@ -50,9 +50,8 @@ as_lst <- function(expr) {
   if (length(o) == 0) {
     o <- list()
   }
-  if (!is.list(o)) {
+  if (is.list(o) && length(o) > 1) {
     o <- list(o)
   }
-  if (length(o) != 1L) stop("must return 1 chr")
   o
 }
