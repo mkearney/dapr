@@ -15,7 +15,7 @@
 #' lap(mtcars[1:5, ], as.character)
 #'
 #' @export
-lap <- function(.data, .f, ...) use_method("lap")
+lap <- function(.data, .f, ...) use_method("lap", ...)
 
 #' @export
 lap.default <- function(.data, .f, ...) {
@@ -36,7 +36,8 @@ lap.tbl_df <- function(.data, .f, ...) {
 }
 
 #' @rdname lap
-dapc <- function(.data, .f, ...) use_method("dapc")
+#' @export
+dapc <- function(.data, .f, ...) use_method("dapc", ...)
 
 #' @export
 dapc.default <- function(.data, .f, ...) {
@@ -51,7 +52,8 @@ dapc.default <- function(.data, .f, ...) {
 }
 
 #' @rdname lap
-dapr <- function(.data, .f, ...) use_method("dapr")
+#' @export
+dapr <- function(.data, .f, ...) use_method("dapr", ...)
 
 #' @export
 dapr.default <- function(.data, .f, ...) {
@@ -67,7 +69,8 @@ dapr.default <- function(.data, .f, ...) {
 
 
 #' @rdname lap
-dapc_if <- function(.data, .predicate, .f, ...) use_method("dapc_if")
+#' @export
+dapc_if <- function(.data, .predicate, .f, ...) use_method("dapc_if", ...)
 
 #' @export
 dapc_if.default <- function(.data, .predicate, .f, ...) {
