@@ -16,9 +16,13 @@ dapr(.data, .f, ...)
 dapc_if(.data, .predicate, .f, ...)
 }
 \arguments{
+\item{.data}{Input vector}
+
 \item{.f}{Function or formula call that assumes element is .x}
 
-\item{.x}{Input vector}
+\item{...}{Other args passed to function call}
+
+\item{.predicate}{Logical vector or expression evaluated to expression.}
 }
 \value{
 A list

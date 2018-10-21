@@ -55,7 +55,7 @@ Also, useful shortcut: use formulas with `.x`, just like with the
 
 ```{r}
 ## character
-vap_chr(letters[1:5], ~ paste0(.x, "."))
+vap_chr(letters[1:3], ~ paste0(.x, "."))
 ```
 
 ### `vap_lgl()`
@@ -65,7 +65,7 @@ Iterate over input and return logical.
 
 ```{r}
 ## logical
-vap_lgl(letters[1:5], ~ .x %in% c("a", "e", "i", "o", "u"))
+vap_lgl(letters[1:3], ~ .x %in% c("a", "e", "i", "o", "u"))
 ```
 
 
@@ -75,8 +75,20 @@ Iterate over input and return list(s).
 
 ```{r}
 ## list of strings
-lap(letters[1:5], ~ paste0(.x, "."))
+lap(letters[1:3], ~ paste0(.x, "."))
 
 ## list of columns
-lap(mtcars[1:5, 1:5], as.integer)
+lap(mtcars[1:3, 1:3], as.integer)
+```
+
+### `dap()`
+
+Iterate over input and return list(s).
+
+```{r}
+## round columns
+dapc(mtcars[1:3], ~ round(.x, 2))
+
+## round columns
+dapc(mtcars[1:3], round, 3)
 ```

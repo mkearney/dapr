@@ -7,9 +7,8 @@
 #' @param ... Args
 #' @export
 #' @rdname vap
-vap_chr <- function(.x, .f, ...) UseMethod("vap_chr")
+vap_chr <- function(.x, .f, ...) use_method("vap_chr", ...)
 
-#' @export
 vap_chr.default <- function(.x, .f, ...) {
   e <- new.env()
   o <- character(length(.x))
@@ -45,9 +44,8 @@ vap_chr.default <- function(.x, .f, ...) {
 #' vap_lgl(letters, ~ .x %in% c("a", "e", "i", "o", "u"))
 #'
 #' @rdname vap
-vap_dbl <- function(.x, .f, ...) UseMethod("vap_dbl")
+vap_dbl <- function(.x, .f, ...) use_method("vap_dbl", ...)
 
-#' @export
 vap_dbl.default <- function(.x, .f, ...) {
   e <- new.env()
   o <- double(length(.x))
@@ -73,9 +71,8 @@ vap_dbl.default <- function(.x, .f, ...) {
 #' @return A logical vector
 #' @export
 #' @rdname vap
-vap_lgl <- function(.x, .f, ...) UseMethod("vap_lgl")
+vap_lgl <- function(.x, .f, ...) use_method("vap_lgl", ...)
 
-#' @export
 vap_lgl.default <- function(.x, .f, ...) {
   e <- new.env()
   o <- logical(length(.x))

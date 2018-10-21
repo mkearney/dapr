@@ -16,6 +16,8 @@ vap_lgl(.x, .f, ...)
 \item{.x}{Input vector}
 
 \item{.f}{Function or formula call that assumes element is .x}
+
+\item{...}{Args}
 }
 \value{
 A character vector

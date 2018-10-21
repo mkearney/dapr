@@ -61,6 +61,8 @@ dapr.default <- function(.data, .f, ...) {
 
 
 #' @rdname lap
+#' @inheritParams lap
+#' @param .predicate Logical vector or expression evaluated to expression.
 #' @export
 dapc_if <- function(.data, .predicate, .f, ...) use_method("dapc_if", ...)
 
