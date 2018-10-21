@@ -4,6 +4,7 @@
 #'
 #' @inheritParams vap_dbl
 #' @return A character vector
+#' @param ... Args
 #' @export
 #' @rdname vap
 vap_chr <- function(.x, .f, ...) UseMethod("vap_chr")
