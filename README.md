@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# dapr
+# dapr <img src="man/figures/logo.png" width="160px" align="right" />
 
 [![Build
 status](https://travis-ci.org/mkearney/dapr.svg?branch=master)](https://travis-ci.org/mkearney/dapr)
@@ -15,7 +15,7 @@ Status](https://codecov.io/gh/mkearney/dapr/branch/master/graph/badge.svg)](http
 
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 
-Iterating for loops. A dependency-free purrr-like iterator.
+Dependency-free purrr-like apply/map/iterate functions
 
 ## Installation
 
@@ -38,7 +38,9 @@ remotes::install_github("mkearney/dapr")
 `.x`, without all the dependencies. In other words, when you want a
 purrr-like experience but you need a lightweight solution.
 
-## Vectors
+## Use
+
+### Vectors
 
   - **`vap_dbl()`** Iterate and return **numeric** vector.
   - **`vap_int()`** Iterate and return **integer** vector.
@@ -70,7 +72,7 @@ vap_chr(e, paste, collapse = "")
 #> [1] "mvktopwdci" "thqbcmiulp" "rwuvznlmoj" "ufxdasqmpk" "hvoqzmiwty"
 ```
 
-## Lists
+### Lists
 
   - **`lap()`** Iterate and return a **list** vector.
 
@@ -100,7 +102,7 @@ lap(e[1:3], toupper)
 #>  [1] "R" "W" "U" "V" "Z" "N" "L" "M" "O" "J"
 ```
 
-## Data frames
+### Data frames
 
   - **`dap()`** Iterate (over columns) and return a **data frame**.
   - **`dapc()`** Iterate over **columns**.
