@@ -23,8 +23,6 @@ dapr_if(.data, .predicate, .f, ...)
 \item{...}{Other args passed to function call}
 
 \item{.predicate}{Logical vector of expression evaluating to a logical vector}
-
-\item{.predicate}{Logical vector of expression evaluating to a logical vector}
 }
 \value{
 A data frame
