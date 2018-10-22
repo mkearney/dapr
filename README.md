@@ -103,10 +103,12 @@ lap(e[1:2], ~ paste0(.x, "."))
 
 ### Data frames
 
-  - **`dap()`** Iterate (over columns) and return a **data frame**.
-  - **`dapc()`** Iterate over **columns**.
-  - **`dapr()`** Iterate over **rows**.
-  - **`dapc_if()`** Iterate over **columns** meeting logical test.
+  - **`dap()`** Iterate (over columns) and return a **data frame**
+      - **`dapc()`** Iterate over **columns**
+      - **`dapr()`** Iterate over **rows**
+  - **`dap_if()`** Conditionally iterate (over columns)
+      - **`dapc_if()`** Conditionally iterate over **columns**
+      - **`dapr_if()`** Conditionally iterate over **rows**
 
 <!-- end list -->
 
@@ -140,14 +142,21 @@ dapr(d[-1], round, 3)
 #> 2 -1.869  1.081
 #> 3  0.743 -1.365
 
-## IF columns
+## conditional
+dap_if(d, is.numeric, ~ round(.x, 4))
+#>   a       b       c
+#> 1 a -0.4994 -0.0892
+#> 2 b -1.8686  1.0812
+#> 3 c  0.7434 -1.3646
+
+## conditional COLUMNS
 dapc_if(d, is.numeric, ~ round(.x, 4))
 #>   a       b       c
 #> 1 a -0.4994 -0.0892
 #> 2 b -1.8686  1.0812
 #> 3 c  0.7434 -1.3646
 
-## IF rows
+## conditional ROWS
 dapr_if(d[-1], ~ sum(.x) >= -.7, ~ round(.x, 0))
 #>          b        c
 #> 1  0.00000  0.00000

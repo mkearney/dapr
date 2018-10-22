@@ -85,9 +85,9 @@ lap(e[1:2], ~ paste0(.x, "."))
 + **`dap()`** Iterate (over columns) and return a **data frame**
    - **`dapc()`** Iterate over **columns**
    - **`dapr()`** Iterate over **rows**
-+ **`dap_if()`** Conditional iterate (over columns)
-   - **`dapc_if()`** Conditional iterate over **columns**
-   - **`dapr_if()`** Conditional iterate over **rows**
++ **`dap_if()`** Conditionally iterate (over columns)
+   - **`dapc_if()`** Conditionally iterate over **columns**
+   - **`dapr_if()`** Conditionally iterate over **rows**
 
 ```{r}
 ## some data
@@ -107,9 +107,12 @@ dapc(d[-1], ~ round(.x, 2))
 ## rows
 dapr(d[-1], round, 3)
 
-## IF columns
+## conditional
+dap_if(d, is.numeric, ~ round(.x, 4))
+
+## conditional COLUMNS
 dapc_if(d, is.numeric, ~ round(.x, 4))
 
-## IF rows
+## conditional ROWS
 dapr_if(d[-1], ~ sum(.x) >= -.7, ~ round(.x, 0))
 ```
