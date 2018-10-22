@@ -82,10 +82,12 @@ lap(e[1:2], ~ paste0(.x, "."))
 ```
 
 ### Data frames
-+ **`dap()`** Iterate (over columns) and return a **data frame**.
-+ **`dapc()`** Iterate over **columns**.
-+ **`dapr()`** Iterate over **rows**.
-+ **`dapc_if()`** Iterate over **columns** meeting logical test.
++ **`dap()`** Iterate (over columns) and return a **data frame**
+   - **`dapc()`** Iterate over **columns**
+   - **`dapr()`** Iterate over **rows**
++ **`dap_if()`** Conditional iterate (over columns)
+   - **`dapc_if()`** Conditional iterate over **columns**
+   - **`dapr_if()`** Conditional iterate over **rows**
 
 ```{r}
 ## some data

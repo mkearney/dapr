@@ -44,6 +44,34 @@ dapr.default <- function(.data, .f, ...) {
 #' @inheritParams dap
 #' @param .predicate Logical vector of expression evaluating to a logical vector
 #' @export
+dap_if <- function(.data, .predicate, .f, ...) use_method("dap_if", ...)
+
+dap_if.default <- function(.data, .predicate, .f, ...) {
+  if (is.logical(.predicate)) {
+    lg <- .predicate
+  } else if (is_lang(.predicate)) {
+    lg <- vapply(.data, function(.x) {
+      eval(.predicate[[2]], envir = new.env())
+    }, logical(1))
+  } else {
+    lg <- vapply(.data, .predicate, logical(1))
+  }
+  stopifnot(is.logical(lg))
+  if (is_lang(.f)) {
+    .data[lg] <- lapply(.data[lg], function(.x) {
+      eval(.f[[2]], envir = new.env())
+    })
+  } else {
+    .data[lg] <- lapply(.data[lg], .f, ...)
+  }
+  .data
+}
+
+
+#' @rdname dap
+#' @inheritParams dap
+#' @param .predicate Logical vector of expression evaluating to a logical vector
+#' @export
 dapc_if <- function(.data, .predicate, .f, ...) use_method("dapc_if", ...)
 
 dapc_if.default <- function(.data, .predicate, .f, ...) {
