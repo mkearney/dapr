@@ -82,10 +82,10 @@ lap(e[1:2], ~ paste0(.x, "."))
 ```
 
 ### Data frames
-+ **`dap()`** Iterate (over columns) and return a **data frame**
++ **`dap*()`** Iterate and return a **data frame**
    - **`dapc()`** Iterate over **columns**
    - **`dapr()`** Iterate over **rows**
-+ **`dap_if()`** Conditionally iterate (over columns)
++ **`dap*_if()`** Conditionally iterate
    - **`dapc_if()`** Conditionally iterate over **columns**
    - **`dapr_if()`** Conditionally iterate over **rows**
 
@@ -98,17 +98,11 @@ d <- data.frame(
   stringsAsFactors = FALSE
 )
 
-## default applies to columns
-dap(d[-1], ~ round(.x, 1))
-
 ## column explicit (same as dap)
 dapc(d[-1], ~ round(.x, 2))
 
 ## rows
 dapr(d[-1], round, 3)
-
-## conditional
-dap_if(d, is.numeric, ~ round(.x, 4))
 
 ## conditional COLUMNS
 dapc_if(d, is.numeric, ~ round(.x, 4))
