@@ -5,6 +5,7 @@
 \alias{dapc}
 \alias{dapr}
 \alias{dapc_if}
+\alias{dapr_if}
 \title{Data frame apply function}
 \usage{
 dap(.data, .f, ...)
@@ -14,6 +15,8 @@ dapc(.data, .f, ...)
 dapr(.data, .f, ...)
 
 dapc_if(.data, .predicate, .f, ...)
+
+dapr_if(.data, .predicate, .f, ...)
 }
 \arguments{
 \item{.data}{Data frame input.}
@@ -21,6 +24,8 @@ dapc_if(.data, .predicate, .f, ...)
 \item{.f}{Function to apply to element (columns or rows)}
 
 \item{...}{Other args passed to function call}
+
+\item{.predicate}{Logical vector of expression evaluating to a logical vector}
 
 \item{.predicate}{Logical vector of expression evaluating to a logical vector}
 }

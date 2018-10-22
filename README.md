@@ -40,6 +40,19 @@ purrr-like experience but you need a lightweight solution.
 
 ## Use
 
+Function names use the convention `*ap()` where **`*`** is the first
+letter of output data
+    type.
+
+  - <code><span style="font-weight:bold;text-decoration:underline">v</span>ap</code>
+    for
+    **vectors**
+  - <code><span style="font-weight:bold;text-decoration:underline">l</span>ap</code>
+    for
+    **lists**
+  - <code><span style="font-weight:bold;text-decoration:underline">d</span>ap</code>
+    for **data frames**
+
 ### Vectors
 
   - **`vap_dbl()`** Iterate and return **numeric** vector.
@@ -51,13 +64,13 @@ purrr-like experience but you need a lightweight solution.
 
 ``` r
 ## create data
-set.seed(12)
+set.seed(2018)
 d <- replicate(5, rnorm(10), simplify = FALSE)
 e <- replicate(5, sample(letters, 10), simplify = FALSE)
 
 ## numeric
 vap_dbl(d, ~ mean(.x))
-#> [1] -0.4672139 -0.1952043  0.2087615 -0.0134176 -0.2475739
+#> [1]  0.2693453 -0.5523232  0.0555929 -0.0625326 -0.1118376
 
 ## integer
 vap_int(d, length)
@@ -69,7 +82,7 @@ vap_lgl(d, ~ max(.x) > 3)
 
 ## character
 vap_chr(e, paste, collapse = "")
-#> [1] "mvktopwdci" "thqbcmiulp" "rwuvznlmoj" "ufxdasqmpk" "hvoqzmiwty"
+#> [1] "hizjpgcexk" "rbeovimtxh" "ujrimwgvzs" "euwrlytgbj" "qkrhylgmnx"
 ```
 
 ### Lists
@@ -80,26 +93,12 @@ vap_chr(e, paste, collapse = "")
 
 ``` r
 ## list of strings
-lap(e[1:3], ~ paste0(.x, "."))
+lap(e[1:2], ~ paste0(.x, "."))
 #> [[1]]
-#>  [1] "m." "v." "k." "t." "o." "p." "w." "d." "c." "i."
+#>  [1] "h." "i." "z." "j." "p." "g." "c." "e." "x." "k."
 #> 
 #> [[2]]
-#>  [1] "t." "h." "q." "b." "c." "m." "i." "u." "l." "p."
-#> 
-#> [[3]]
-#>  [1] "r." "w." "u." "v." "z." "n." "l." "m." "o." "j."
-
-## list of columns
-lap(e[1:3], toupper)
-#> [[1]]
-#>  [1] "M" "V" "K" "T" "O" "P" "W" "D" "C" "I"
-#> 
-#> [[2]]
-#>  [1] "T" "H" "Q" "B" "C" "M" "I" "U" "L" "P"
-#> 
-#> [[3]]
-#>  [1] "R" "W" "U" "V" "Z" "N" "L" "M" "O" "J"
+#>  [1] "r." "b." "e." "o." "v." "i." "m." "t." "x." "h."
 ```
 
 ### Data frames
@@ -114,45 +113,44 @@ lap(e[1:3], toupper)
 ``` r
 ## some data
 d <- data.frame(
-  a = letters[1:5],
-  b = rnorm(5),
-  c = rnorm(5),
+  a = letters[1:3],
+  b = rnorm(3),
+  c = rnorm(3),
   stringsAsFactors = FALSE
 )
 
 ## default applies to columns
-dap(d[-1], ~ round(.x, 2))
-#>       b     c
-#> 1 -0.63  0.00
-#> 2 -1.27 -1.27
-#> 3 -0.38 -0.20
-#> 4  0.52  1.16
-#> 5 -0.18 -0.02
+dap(d[-1], ~ round(.x, 1))
+#>      b    c
+#> 1 -0.5 -0.1
+#> 2 -1.9  1.1
+#> 3  0.7 -1.4
 
-## column explicit
+## column explicit (same as dap)
 dapc(d[-1], ~ round(.x, 2))
 #>       b     c
-#> 1 -0.63  0.00
-#> 2 -1.27 -1.27
-#> 3 -0.38 -0.20
-#> 4  0.52  1.16
-#> 5 -0.18 -0.02
+#> 1 -0.50 -0.09
+#> 2 -1.87  1.08
+#> 3  0.74 -1.36
 
 ## rows
 dapr(d[-1], round, 3)
 #>        b      c
-#> 1 -0.634  0.004
-#> 2 -1.271 -1.274
-#> 3 -0.384 -0.202
-#> 4  0.517  1.164
-#> 5 -0.178 -0.023
+#> 1 -0.499 -0.089
+#> 2 -1.869  1.081
+#> 3  0.743 -1.365
 
-## predicate columns
-dapc_if(d, is.numeric, ~ round(.x, 1))
-#>   a    b    c
-#> 1 a -0.6  0.0
-#> 2 b -1.3 -1.3
-#> 3 c -0.4 -0.2
-#> 4 d  0.5  1.2
-#> 5 e -0.2  0.0
+## IF columns
+dapc_if(d, is.numeric, ~ round(.x, 4))
+#>   a       b       c
+#> 1 a -0.4994 -0.0892
+#> 2 b -1.8686  1.0812
+#> 3 c  0.7434 -1.3646
+
+## IF rows
+dapr_if(d[-1], ~ sum(.x) >= -.7, ~ round(.x, 0))
+#>          b        c
+#> 1  0.00000  0.00000
+#> 2 -1.86861  1.08116
+#> 3  1.00000 -1.00000
 ```

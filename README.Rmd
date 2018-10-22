@@ -41,6 +41,12 @@ when you want a purrr-like experience but you need a lightweight solution.
 
 ## Use
 
+Function names use the convention `*ap()` where **`*`** is the first letter of output data type.
+
++ <code><span style="font-weight:bold;text-decoration:underline">v</span>ap</code> for **vectors**
++ <code><span style="font-weight:bold;text-decoration:underline">l</span>ap</code> for **lists**
++ <code><span style="font-weight:bold;text-decoration:underline">d</span>ap</code> for **data frames**
+
 ### Vectors
 
 + **`vap_dbl()`** Iterate and return **numeric** vector.
@@ -50,7 +56,7 @@ when you want a purrr-like experience but you need a lightweight solution.
 
 ```{r}
 ## create data
-set.seed(12)
+set.seed(2018)
 d <- replicate(5, rnorm(10), simplify = FALSE)
 e <- replicate(5, sample(letters, 10), simplify = FALSE)
 
@@ -72,10 +78,7 @@ vap_chr(e, paste, collapse = "")
 
 ```{r}
 ## list of strings
-lap(e[1:3], ~ paste0(.x, "."))
-
-## list of columns
-lap(e[1:3], toupper)
+lap(e[1:2], ~ paste0(.x, "."))
 ```
 
 ### Data frames
@@ -87,21 +90,24 @@ lap(e[1:3], toupper)
 ```{r}
 ## some data
 d <- data.frame(
-  a = letters[1:5],
-  b = rnorm(5),
-  c = rnorm(5),
+  a = letters[1:3],
+  b = rnorm(3),
+  c = rnorm(3),
   stringsAsFactors = FALSE
 )
 
 ## default applies to columns
-dap(d[-1], ~ round(.x, 2))
+dap(d[-1], ~ round(.x, 1))
 
-## column explicit
+## column explicit (same as dap)
 dapc(d[-1], ~ round(.x, 2))
 
 ## rows
 dapr(d[-1], round, 3)
 
-## predicate columns
-dapc_if(d, is.numeric, ~ round(.x, 1))
+## IF columns
+dapc_if(d, is.numeric, ~ round(.x, 4))
+
+## IF rows
+dapr_if(d[-1], ~ sum(.x) >= -.7, ~ round(.x, 0))
 ```

@@ -16,4 +16,9 @@ test_that("data frame apply functions", {
   ## columns IF
   expect_true(is.data.frame(dapc_if(d, is.numeric, ~ round(.x, 3))))
   expect_true(is.data.frame(dapc_if(d, is.numeric, round, 3)))
+  ## rows IF
+  expect_true(is.data.frame(
+    dapr_if(d[-1], c(TRUE, TRUE, FALSE, FALSE, TRUE), round)))
+  expect_true(is.data.frame(
+    dapr_if(d[-1], ~ sum(.x) > 0, ~ round(.x, 0))))
 })
