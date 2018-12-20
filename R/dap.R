@@ -12,8 +12,17 @@ dapc <- function(.data, .f, ...) use_method("dapc", ...)
 
 dapc.default <- function(.data, .f, ...) {
   if (is_lang(.f)) {
+    ## call environment
+    e <- call_env(.f)
+
+    ## map over elements of data
     .data[] <- lapply(.data, function(.x) {
-      eval(.f[[2]], envir = new.env())
+
+      ## assign .x (and override each time)
+      assign(".x", .x, envir = e)
+
+      ## evaluate in modified call environment
+      eval(.f[[2]], envir = e)
     })
   } else {
     .data[] <- lapply(.data, .f, ...)
@@ -27,8 +36,17 @@ dapr <- function(.data, .f, ...) use_method("dapr", ...)
 
 dapr.default <- function(.data, .f, ...) {
   if (is_lang(.f)) {
+    ## call environment
+    e <- call_env(.f)
+
     .data[seq_len(nrow(.data)), ] <- t(apply(.data, 1, function(.x) {
-      eval(.f[[2]], envir = new.env())
+
+      ## assign .x (and override each time)
+      assign(".x", .x, envir = e)
+
+      ## evaluate in modified call environment
+      eval(.f[[2]], envir = e)
+
     }))
   } else {
     .data[seq_len(nrow(.data)), ] <- t(apply(.data, 1, .f, ...))
@@ -48,16 +66,39 @@ dapc_if.default <- function(.data, .predicate, .f, ...) {
   if (is.logical(.predicate)) {
     lg <- .predicate
   } else if (is_lang(.predicate)) {
+
+    ## call environment
+    e <- call_env(.predicate)
+
     lg <- vapply(.data, function(.x) {
-      eval(.predicate[[2]], envir = new.env())
-    }, logical(1))
+
+      ## assign .x (and override each time)
+      assign(".x", .x, envir = e)
+
+      ## evaluate in modified call environment
+      eval(.predicate[[2]], envir = e)
+
+    }, FUN.VALUE = logical(1),
+      USE.NAMES = FALSE)
   } else {
-    lg <- vapply(.data, .predicate, logical(1))
+    lg <- vapply(.data, .predicate,
+      FUN.VALUE = logical(1),
+      USE.NAMES = FALSE)
   }
   stopifnot(is.logical(lg))
+
   if (is_lang(.f)) {
+    ## call environment
+    e <- call_env(.f)
+
     .data[lg] <- lapply(.data[lg], function(.x) {
-      eval(.f[[2]], envir = new.env())
+
+      ## assign .x (and override each time)
+      assign(".x", .x, envir = e)
+
+      ## evaluate in modified call environment
+      eval(.f[[2]], envir = e)
+
     })
   } else {
     .data[lg] <- lapply(.data[lg], .f, ...)
@@ -76,17 +117,39 @@ dapr_if.default <- function(.data, .predicate, .f, ...) {
   if (is.logical(.predicate)) {
     lg <- .predicate
   } else if (is_lang(.predicate)) {
+
+    ## call environment
+    e <- call_env(.predicate)
+
     lg <- unlist(apply(.data, 1, function(.x) {
-      eval(.predicate[[2]], envir = new.env())
+
+      ## assign .x (and override each time)
+      assign(".x", .x, envir = e)
+
+      ## evaluate in modified call environment
+      eval(.predicate[[2]], envir = e)
+
     }))
   } else {
-    lg <- vapply(.data, .predicate, logical(1))
+    lg <- vapply(.data, .predicate,
+      FUN.VALUE = logical(1),
+      USE.NAMES = FALSE)
   }
   stopifnot(is.logical(lg))
   if (sum(lg) == 0) return(.data)
+
   if (is_lang(.f)) {
+    ## call environment
+    e <- call_env(.f)
+
     .data[lg, ] <- t(apply(.data[lg, ], 1, function(.x) {
-      eval(.f[[2]], envir = new.env())
+
+      ## assign .x (and override each time)
+      assign(".x", .x, envir = e)
+
+      ## evaluate in modified call environment
+      eval(.f[[2]], envir = e)
+
     }))
   } else {
     .data[lg, ] <- t(apply(.data[lg, ], 1, .f, ...))

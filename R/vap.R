@@ -11,11 +11,24 @@ vap_chr <- function(.data, .f, ...) use_method("vap_chr", ...)
 
 vap_chr.default <- function(.data, .f, ...) {
   if (is_lang(.f)) {
+    ## call environment
+    e <- call_env(.f)
+
+    ## map and return character
     vapply(.data, function(.x) {
-      eval(.f[[2]], envir = new.env())
-    }, FUN.VALUE = character(1))
+
+      ## assign .x (and override each time)
+      assign(".x", .x, envir = e)
+
+      ## evaluate in modified call environment
+      eval(.f[[2]], envir = e)
+
+    }, FUN.VALUE = character(1),
+      USE.NAMES = FALSE)
   } else {
-    vapply(.data, .f, ..., FUN.VALUE = character(1))
+    vapply(.data, .f, ...,
+      FUN.VALUE = character(1),
+      USE.NAMES = FALSE)
   }
 }
 
@@ -47,11 +60,24 @@ vap_dbl <- function(.data, .f, ...) use_method("vap_dbl", ...)
 
 vap_dbl.default <- function(.data, .f, ...) {
   if (is_lang(.f)) {
+    ## call environment
+    e <- call_env(.f)
+
+    ## map and return numeric
     vapply(.data, function(.x) {
-      eval(.f[[2]], envir = new.env())
-    }, FUN.VALUE = numeric(1))
+
+      ## assign .x (and override each time)
+      assign(".x", .x, envir = e)
+
+      ## evaluate in modified call environment
+      eval(.f[[2]], envir = e)
+
+    }, FUN.VALUE = numeric(1),
+      USE.NAMES = FALSE)
   } else {
-    vapply(.data, .f, ..., FUN.VALUE = numeric(1))
+    vapply(.data, .f, ...,
+      FUN.VALUE = numeric(1),
+      USE.NAMES = FALSE)
   }
 }
 
@@ -70,11 +96,24 @@ vap_lgl <- function(.data, .f, ...) use_method("vap_lgl", ...)
 
 vap_lgl.default <- function(.data, .f, ...) {
   if (is_lang(.f)) {
+    ## call environment
+    e <- call_env(.f)
+
+    ## map and return logical
     vapply(.data, function(.x) {
-      eval(.f[[2]], envir = new.env())
-    }, FUN.VALUE = logical(1))
+
+      ## assign .x (and override each time)
+      assign(".x", .x, envir = e)
+
+      ## evaluate in modified call environment
+      eval(.f[[2]], envir = e)
+
+    }, FUN.VALUE = logical(1),
+      USE.NAMES = FALSE)
   } else {
-    vapply(.data, .f, ..., FUN.VALUE = logical(1))
+    vapply(.data, .f, ...,
+      FUN.VALUE = logical(1),
+      USE.NAMES = FALSE)
   }
 }
 
@@ -92,10 +131,20 @@ vap_int <- function(.data, .f, ...) use_method("vap_int", ...)
 
 vap_int.default <- function(.data, .f, ...) {
   if (is_lang(.f)) {
+    ## map and return integer
     vapply(.data, function(.x) {
-      eval(.f[[2]], envir = new.env())
-    }, FUN.VALUE = integer(1))
+
+      ## assign .x (and override each time)
+      assign(".x", .x, envir = e)
+
+      ## evaluate in modified call environment
+      eval(.f[[2]], envir = e)
+
+    }, FUN.VALUE = integer(1),
+      USE.NAMES = FALSE)
   } else {
-    vapply(.data, .f, ..., FUN.VALUE = integer(1))
+    vapply(.data, .f, ...,
+      FUN.VALUE = integer(1),
+      USE.NAMES = FALSE)
   }
 }

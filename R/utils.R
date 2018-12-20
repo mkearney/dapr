@@ -15,3 +15,6 @@ default_method <- function(x) paste0(x, ".default")
 dots <- function(...) {
   eval(substitute(alist(...)), envir = parent.frame())
 }
+
+
+call_env <- function(f) environment(f)
