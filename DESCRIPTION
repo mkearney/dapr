@@ -11,7 +11,7 @@ Description: An easy-to-use, dependency-free set of functions for iterating over
     elements of various objects.
 License: GPL-3
 Encoding: UTF-8
-Langauge: en
+Language: en
 LazyData: true
 RoxygenNote: 6.1.1
 URL: https://github.com/mkearney/dapr
