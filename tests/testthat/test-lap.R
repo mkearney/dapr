@@ -9,4 +9,7 @@ test_that("list apply functions", {
   )
   expect_true(is.list(lap(d[-1], ~ round(.x, 3))))
   expect_true(is.list(lap(d[-1], round, 3)))
+  min <- 3
+  expect_true(is.list(lap(d[-1], ~ round(.x, min))))
+  expect_true(is.list(lap(d[-1], round, digits = 3)))
 })
