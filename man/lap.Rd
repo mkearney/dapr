@@ -11,7 +11,7 @@ lap(.data, .f, ...)
 
 \item{.f}{Function or formula call that assumes element is .x}
 
-\item{...}{Other args passed to function call}
+\item{...}{Other values passed to function call.}
 }
 \value{
 A list

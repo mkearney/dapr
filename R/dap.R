@@ -3,8 +3,8 @@
 #' Applies functions to columns (default) of data frame
 #'
 #' @param .data Data frame input.
-#' @param .f Function to apply to element (columns or rows)
-#' @param ... Other args passed to function call
+#' @param .f Function to apply to element (columns or rows).
+#' @param ... Other values passed to function call.
 #' @return A data frame
 #' @export
 #' @rdname dap

@@ -20,7 +20,7 @@ vap_int(.data, .f, ...)
 
 \item{.f}{Function or formula call that assumes element is .data}
 
-\item{...}{Args}
+\item{...}{Other values passed to function call.}
 }
 \value{
 A character vector

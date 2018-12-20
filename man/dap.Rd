@@ -18,9 +18,9 @@ dapr_if(.data, .predicate, .f, ...)
 \arguments{
 \item{.data}{Data frame input.}
 
-\item{.f}{Function to apply to element (columns or rows)}
+\item{.f}{Function to apply to element (columns or rows).}
 
-\item{...}{Other args passed to function call}
+\item{...}{Other values passed to function call.}
 
 \item{.predicate}{Logical vector of expression evaluating to a logical vector}
 }

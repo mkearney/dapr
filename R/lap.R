@@ -5,7 +5,7 @@
 #'
 #' @param .data Input vector
 #' @param .f Function or formula call that assumes element is .x
-#' @param ... Other args passed to function call
+#' @param ... Other values passed to function call.
 #' @return A list
 #' @examples
 #'

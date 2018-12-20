@@ -4,7 +4,7 @@
 #'
 #' @inheritParams vap_dbl
 #' @return A character vector
-#' @param ... Args
+#' @param ... Other values passed to function call.
 #' @export
 #' @rdname vap
 vap_chr <- function(.data, .f, ...) use_method("vap_chr", ...)
