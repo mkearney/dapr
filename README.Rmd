@@ -26,7 +26,7 @@ Install the development version from Github with:
 
 ``` r
 ## install remotes pkg if not already
-if (!requireNamespace("remotes")) {
+if (!requireNamespace("remotes", quietly = TRUE)) {
   install.packages("remotes")
 }
 

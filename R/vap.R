@@ -131,6 +131,9 @@ vap_int <- function(.data, .f, ...) use_method("vap_int", ...)
 
 vap_int.default <- function(.data, .f, ...) {
   if (is_lang(.f)) {
+    ## call environment
+    e <- call_env(.f)
+
     ## map and return integer
     vapply(.data, function(.x) {
 
