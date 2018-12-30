@@ -1,6 +1,6 @@
 Package: dapr
 Title: Easy Apply Functions
-Version: 0.0.1
+Version: 0.0.2
 Authors@R: 
     person(given = "Michael W.",
            family = "Kearney",
