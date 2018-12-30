@@ -9,10 +9,9 @@ status](https://travis-ci.org/mkearney/dapr.svg?branch=master)](https://travis-c
 status](https://www.r-pkg.org/badges/version/dapr)](https://cran.r-project.org/package=dapr)
 [![Coverage
 Status](https://codecov.io/gh/mkearney/dapr/branch/master/graph/badge.svg)](https://codecov.io/gh/mkearney/dapr?branch=master)
-
-<!--#![Downloads](https://cranlogs.r-pkg.org/badges/dapr)
-#![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/dapr)-->
-
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2528504.svg)](https://doi.org/10.5281/zenodo.2528504)
+![Downloads](https://cranlogs.r-pkg.org/badges/dapr?color=yellowgreen)
+![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/dapr?color=dd69b4)
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 
 Dependency-free purrr-like apply/map/iterate functions
@@ -31,7 +30,7 @@ if (!requireNamespace("remotes", quietly = TRUE)) {
 remotes::install_github("mkearney/dapr")
 ```
 
-## {dapr} vs. {base} & {purrr}?
+## {dapr} vs. {base} & {purrr}?
 
 **{dapr}** provides the ease and consistency of
 [**{purrr}**](https://purrr.tidyverse.org), including use of `~` and
@@ -99,6 +98,27 @@ lap(e[1:2], ~ paste0(.x, "."))
 #> 
 #> [[2]]
 #>  [1] "r." "b." "e." "o." "v." "i." "m." "t." "x." "h."
+```
+
+  - **`ilap()`** Iterate over sequence length `.i` (instead of `.x`) and
+    return a **list** vector.
+
+<!-- end list -->
+
+``` r
+## list of strings
+ilap(1:4, ~ paste0(letters[.i], rev(LETTERS)[.i]))
+#> [[1]]
+#> [1] "aZ"
+#> 
+#> [[2]]
+#> [1] "bY"
+#> 
+#> [[3]]
+#> [1] "cX"
+#> 
+#> [[4]]
+#> [1] "dW"
 ```
 
 ### Data frames

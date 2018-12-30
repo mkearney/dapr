@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • dapr</title>
+<title>Iterator list apply — ilap • dapr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -39,7 +39,9 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Iterator list apply — ilap" />
+
+<meta property="og:description" content="Iterate over sequence length of input and return list(s)" />
 
 <meta property="og:image" content="https://dapr.mikewk.com/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -59,7 +61,7 @@
   </head>
 
   <body>
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -109,60 +111,122 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Iterator list apply</h1>
+    <small class="dont-index">Source: <a href='https://github.com/mkearney/dapr/blob/master/R/ilap.R'><code>R/ilap.R</code></a></small>
+    <div class="hidden name"><code>ilap.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    
+    <p>Iterate over sequence length of input and return list(s)</p>
+    
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
-
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="dap.html">dapc()</a></code> <code><a href="dap.html">dapr()</a></code> <code><a href="dap.html">dapc_if()</a></code> <code><a href="dap.html">dapr_if()</a></code> </p>
-        </td>
-        <td><p>Data frame apply function</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="ilap.html">ilap()</a></code> </p>
-        </td>
-        <td><p>Iterator list apply</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="lap.html">lap()</a></code> </p>
-        </td>
-        <td><p>List apply</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="vap.html">vap_chr()</a></code> <code><a href="vap.html">vap_dbl()</a></code> <code><a href="vap.html">vap_lgl()</a></code> <code><a href="vap.html">vap_int()</a></code> </p>
-        </td>
-        <td><p>Vector apply character</p></td>
-      </tr>
-    </tbody>
+    <pre class="usage"><span class='fu'>ilap</span>(<span class='no'>.data</span>, <span class='no'>.f</span>, <span class='no'>...</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>.data</th>
+      <td><p>The sequence length, used as ".i" in the following expression</p></td>
+    </tr>
+    <tr>
+      <th>.f</th>
+      <td><p>Function or formula call that assumes integer element is .i</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Other values passed to function call.</p></td>
+    </tr>
     </table>
-  </div>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
+    <p>A list</p>
+    
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>
+<span class='co'>## return string list</span>
+<span class='fu'>ilap</span>(<span class='fl'>1</span>:<span class='fl'>10</span>, ~ <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/paste'>paste0</a></span>(<span class='no'>letters</span>[<span class='no'>.i</span>], <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rev'>rev</a></span>(<span class='no'>LETTERS</span>)[<span class='no'>.i</span>]))</div><div class='output co'>#&gt; [[1]]
+#&gt; [1] "aZ"
+#&gt; 
+#&gt; [[2]]
+#&gt; [1] "bY"
+#&gt; 
+#&gt; [[3]]
+#&gt; [1] "cX"
+#&gt; 
+#&gt; [[4]]
+#&gt; [1] "dW"
+#&gt; 
+#&gt; [[5]]
+#&gt; [1] "eV"
+#&gt; 
+#&gt; [[6]]
+#&gt; [1] "fU"
+#&gt; 
+#&gt; [[7]]
+#&gt; [1] "gT"
+#&gt; 
+#&gt; [[8]]
+#&gt; [1] "hS"
+#&gt; 
+#&gt; [[9]]
+#&gt; [1] "iR"
+#&gt; 
+#&gt; [[10]]
+#&gt; [1] "jQ"
+#&gt; </div><div class='input'>
+<span class='co'>## return list of columns</span>
+<span class='fu'>ilap</span>(<span class='no'>mtcars</span>, ~ <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/row.names'>row.names</a></span>(<span class='no'>mtcars</span>)[<span class='no'>.i</span>], <span class='no'>mtcars</span>$<span class='no'>wt</span>[<span class='no'>.i</span>]))</div><div class='output co'>#&gt; [[1]]
+#&gt; [1] "Mazda RX4" "2.62"     
+#&gt; 
+#&gt; [[2]]
+#&gt; [1] "Mazda RX4 Wag" "2.875"        
+#&gt; 
+#&gt; [[3]]
+#&gt; [1] "Datsun 710" "2.32"      
+#&gt; 
+#&gt; [[4]]
+#&gt; [1] "Hornet 4 Drive" "3.215"         
+#&gt; 
+#&gt; [[5]]
+#&gt; [1] "Hornet Sportabout" "3.44"             
+#&gt; 
+#&gt; [[6]]
+#&gt; [1] "Valiant" "3.46"   
+#&gt; 
+#&gt; [[7]]
+#&gt; [1] "Duster 360" "3.57"      
+#&gt; 
+#&gt; [[8]]
+#&gt; [1] "Merc 240D" "3.19"     
+#&gt; 
+#&gt; [[9]]
+#&gt; [1] "Merc 230" "3.15"    
+#&gt; 
+#&gt; [[10]]
+#&gt; [1] "Merc 280" "3.44"    
+#&gt; 
+#&gt; [[11]]
+#&gt; [1] "Merc 280C" "3.44"     
+#&gt; </div><div class='input'>
+</div></pre>
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-all-functions">All functions</a></li>
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#value">Value</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
     </ul>
+
   </div>
 </div>
 

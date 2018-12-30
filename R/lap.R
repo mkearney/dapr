@@ -16,21 +16,14 @@
 #' lap(mtcars[1:5, ], as.character)
 #'
 #' @export
-lap <- function(.data, .f, ...) use_method("lap", ...)
+lap <- function(.data, .f, ...) UseMethod("lap")
 
+#' @export
 lap.default <- function(.data, .f, ...) {
   if (is_lang(.f)) {
-    ## call environment
-    e <- call_env(.f)
-
-    ## map via lapply
+    e <- call_env()
     lapply(.data, function(.x) {
-
-      ## assign .x (and override each time)
-      assign(".x", .x, envir = e)
-
-      ## evaluate in modified call environment
-      eval(.f[[2]], envir = e)
+      eval(eval(.f, envir = e)[[2]], list(.x = .x), e)
     })
   } else {
     lapply(.data, .f, ...)

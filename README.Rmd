@@ -13,9 +13,9 @@ library(dapr)
 [![Build status](https://travis-ci.org/mkearney/dapr.svg?branch=master)](https://travis-ci.org/mkearney/dapr)
 [![CRAN status](https://www.r-pkg.org/badges/version/dapr)](https://cran.r-project.org/package=dapr)
 [![Coverage Status](https://codecov.io/gh/mkearney/dapr/branch/master/graph/badge.svg)](https://codecov.io/gh/mkearney/dapr?branch=master)
-
-<!--#![Downloads](https://cranlogs.r-pkg.org/badges/dapr)
-#![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/dapr)-->
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2528504.svg)](https://doi.org/10.5281/zenodo.2528504)
+![Downloads](https://cranlogs.r-pkg.org/badges/dapr?color=yellowgreen)
+![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/dapr?color=dd69b4)
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 
 Dependency-free purrr-like apply/map/iterate functions
@@ -79,6 +79,13 @@ vap_chr(e, paste, collapse = "")
 ```{r}
 ## list of strings
 lap(e[1:2], ~ paste0(.x, "."))
+```
+
++ **`ilap()`** Iterate over sequence length `.i` (instead of `.x`) and return a **list** vector.
+
+```{r}
+## list of strings
+ilap(1:4, ~ paste0(letters[.i], rev(LETTERS)[.i]))
 ```
 
 ### Data frames
