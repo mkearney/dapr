@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Vector apply character — vap_chr • dapr</title>
+<title>vap: Vector apply functions — vap • dapr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -39,12 +39,14 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Vector apply character — vap_chr" />
+<meta property="og:title" content="vap: Vector apply functions — vap" />
 
-<meta property="og:description" content="Iterate over input and return character(s)
-Iterate over input and return double(s)
-Iterate over input and return logical(s)
-Iterate over input and return integer(s)" />
+<meta property="og:description" content="Functions that apply expressions to input data objects and return atomic
+vectors e.g., numeric (double), character, logical.
+vap_dbl: Iterate over input and return double(s)
+vap_chr: Iterate over input and return character(s)
+vap_lgl: Iterate over input and return logical(s)
+vap_int: Iterate over input and return integer(s)" />
 
 <meta property="og:image" content="https://dapr.mikewk.com/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -116,23 +118,25 @@ Iterate over input and return integer(s)" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Vector apply character</h1>
+    <h1>vap: Vector apply functions</h1>
     <small class="dont-index">Source: <a href='https://github.com/mkearney/dapr/blob/master/R/vap.R'><code>R/vap.R</code></a></small>
     <div class="hidden name"><code>vap.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Iterate over input and return character(s)</p>
-<p>Iterate over input and return double(s)</p>
-<p>Iterate over input and return logical(s)</p>
-<p>Iterate over input and return integer(s)</p>
+    <p>Functions that apply expressions to input data objects and return atomic
+vectors e.g., numeric (double), character, logical.</p>
+<p>vap_dbl: Iterate over input and return double(s)</p>
+<p>vap_chr: Iterate over input and return character(s)</p>
+<p>vap_lgl: Iterate over input and return logical(s)</p>
+<p>vap_int: Iterate over input and return integer(s)</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>vap_chr</span>(<span class='no'>.data</span>, <span class='no'>.f</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>vap_dbl</span>(<span class='no'>.data</span>, <span class='no'>.f</span>, <span class='no'>...</span>)
 
-<span class='fu'>vap_dbl</span>(<span class='no'>.data</span>, <span class='no'>.f</span>, <span class='no'>...</span>)
+<span class='fu'>vap_chr</span>(<span class='no'>.data</span>, <span class='no'>.f</span>, <span class='no'>...</span>)
 
 <span class='fu'>vap_lgl</span>(<span class='no'>.data</span>, <span class='no'>.f</span>, <span class='no'>...</span>)
 
@@ -143,11 +147,17 @@ Iterate over input and return integer(s)" />
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>.data</th>
-      <td><p>Input vector</p></td>
+      <td><p>Input object–numeric, character, list, data frame, etc.–over
+which elements will be iterated. If matrix or data frame, each
+column will be treated as the elements which are to be iterated over.</p></td>
     </tr>
     <tr>
       <th>.f</th>
-      <td><p>Function or formula call that assumes element is .data</p></td>
+      <td><p>Function to apply to each element of input object. This can be
+written as a single function name e.g., <code>mean</code>, a formula-like
+function call where '.x' is assumed to be the iterated over element of
+input data e.g., <code>~ mean(.x)</code>, or an in-line function definition e.g.,
+<code>function(x) mean(x)</code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -157,10 +167,14 @@ Iterate over input and return integer(s)" />
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A character vector</p>
-<p>A double vector</p>
+    <p>A double vector</p>
+<p>A character vector</p>
 <p>A logical vector</p>
 <p>A integer vector</p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='dap.html'>dap</a></code> <code><a href='lap.html'>lap</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -184,6 +198,8 @@ Iterate over input and return integer(s)" />
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

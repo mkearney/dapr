@@ -2,14 +2,20 @@
 % Please edit documentation in R/lap.R
 \name{lap}
 \alias{lap}
-\title{List apply}
+\title{lap: List apply functions}
 \usage{
 lap(.data, .f, ...)
 }
 \arguments{
-\item{.data}{Input vector}
+\item{.data}{Input object–numeric, character, list, data frame, etc.–over
+which elements will be iterated. If matrix or data frame, each
+column will be treated as the elements which are to be iterated over.}
 
-\item{.f}{Function or formula call that assumes element is .x}
+\item{.f}{Function to apply to each element of input object. This can be
+written as a single function name e.g., \code{mean}, a formula-like
+function call where '.x' is assumed to be the iterated over element of
+input data e.g., \code{~ mean(.x)}, or an in-line function definition e.g.,
+\code{function(x) mean(x)}.}
 
 \item{...}{Other values passed to function call.}
 }
@@ -17,7 +23,9 @@ lap(.data, .f, ...)
 A list
 }
 \description{
-Iterate over input and return list(s)
+Function(s) that apply expressions to input data objects and return lists.
+
+lap: Iterate over input and return list(s)
 }
 \examples{
 
@@ -28,3 +36,9 @@ lap(letters, ~ paste0(.x, "."))
 lap(mtcars[1:5, ], as.character)
 
 }
+\seealso{
+\code{\link{dap}} \code{\link{vap}}
+
+Other lap: \code{\link{ilap}}
+}
+\concept{lap}

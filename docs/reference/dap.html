@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Data frame apply function — dapc • dapr</title>
+<title>dap: Data frame apply functions — dap • dapr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -39,9 +39,14 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Data frame apply function — dapc" />
+<meta property="og:title" content="dap: Data frame apply functions — dap" />
 
-<meta property="og:description" content="Applies functions to columns (default) of data frame" />
+<meta property="og:description" content="Functions that apply expressions to input data objects and return data
+frames.
+dapc: Apply function to columns of a data frame.
+dapr: Apply function to rows of a data frame.
+dapc_if: Apply function to certain columns of a data frame.
+dapr_if: Apply function to certain rows of a data frame." />
 
 <meta property="og:image" content="https://dapr.mikewk.com/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -113,14 +118,19 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Data frame apply function</h1>
+    <h1>dap: Data frame apply functions</h1>
     <small class="dont-index">Source: <a href='https://github.com/mkearney/dapr/blob/master/R/dap.R'><code>R/dap.R</code></a></small>
     <div class="hidden name"><code>dap.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Applies functions to columns (default) of data frame</p>
+    <p>Functions that apply expressions to input data objects and return data
+frames.</p>
+<p>dapc: Apply function to columns of a data frame.</p>
+<p>dapr: Apply function to rows of a data frame.</p>
+<p>dapc_if: Apply function to certain columns of a data frame.</p>
+<p>dapr_if: Apply function to certain rows of a data frame.</p>
     
     </div>
 
@@ -141,7 +151,11 @@
     </tr>
     <tr>
       <th>.f</th>
-      <td><p>Function to apply to element (columns or rows).</p></td>
+      <td><p>Function to apply to element (columns or rows). This can be written
+as a single function name e.g., <code>mean</code>, a formula-like function call
+where '.x' is assumed to be the iterated over element of input data e.g.,
+<code>~ mean(.x)</code>, or an in-line function definition e.g.,
+<code>function(x) mean(x)</code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -149,13 +163,26 @@
     </tr>
     <tr>
       <th>.predicate</th>
-      <td><p>Logical vector of expression evaluating to a logical vector</p></td>
+      <td><p>Logical vector or expression evaluating to a logical vector.
+  If not a logical vector, this can be written as a single function name
+  e.g., <code>is.numeric</code>, a formula-like function call where '.x' is assumed
+  to be the iterated over element of input data e.g.,
+  <code>~ is.numeric(.x)</code>, or an in-line function definition e.g.,
+  <code>function(x) is.numeric(x)</code>. Regardless, if a logical vector is not
+  provided, this expression must return a logical vector of the same length
+  as the input .data object.</p>
+<p>The resulting logical vector is used to determine which elements (rows or
+  columns) to iterate over with the .f function/expression.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A data frame</p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='lap.html'>lap</a></code> <code><a href='vap.html'>vap</a></code></p></div>
     
 
   </div>
@@ -165,6 +192,8 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#see-also">See also</a></li>
           </ul>
 
   </div>

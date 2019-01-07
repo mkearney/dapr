@@ -7,9 +7,17 @@
 ilap(.data, .f, ...)
 }
 \arguments{
-\item{.data}{The sequence length, used as ".i" in the following expression}
+\item{.data}{Object representing the sequence length, used as ".i" in the .f
+expression. If matrix or data frame, sequence length will be determined by
+the number of columns. If integer, then it will be passed directly onto
+function call, otherwise the object will be converted into a sequence from
+1 to the length of the object.}
 
-\item{.f}{Function or formula call that assumes integer element is .i}
+\item{.f}{Function to apply to each element (as an integer position) of input
+object. This can be written as a single function name e.g., \code{mean}, a
+formula-like function call where '.i' is assumed to be the integer position
+of input data object e.g., \code{~ mean(mtcars[[.i]])}, or an in-line
+function definition e.g., \code{function(x) mean(mtcars[[x]])}.}
 
 \item{...}{Other values passed to function call.}
 }
@@ -17,7 +25,7 @@ ilap(.data, .f, ...)
 A list
 }
 \description{
-Iterate over sequence length of input and return list(s)
+ilap: Iterate over sequence length of input and return list(s)
 }
 \examples{
 
@@ -28,3 +36,7 @@ ilap(1:10, ~ paste0(letters[.i], rev(LETTERS)[.i]))
 ilap(mtcars, ~ c(row.names(mtcars)[.i], mtcars$wt[.i]))
 
 }
+\seealso{
+Other lap: \code{\link{lap}}
+}
+\concept{lap}

@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Easy Apply Functions • dapr</title>
+<title>Purrr-like Apply Functions Over Input Elements • dapr</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
@@ -16,9 +16,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><link href="extra.css" rel="stylesheet">
-<meta property="og:title" content="Easy Apply Functions">
+<meta property="og:title" content="Purrr-like Apply Functions Over Input Elements">
 <meta property="og:description" content="An easy-to-use, dependency-free set of functions for iterating over
-    elements of various objects.">
+    elements of various input objets. Functions are wrappers around base
+    apply/lapply/vapply functions but designed to have similar functionality to
+    the mapping functions in the 'purrr' package &lt;https://purrr.tidyverse.org/&gt;.
+    Specifically, function names more explicitly communicate the expected class
+    of the output and functions also allow for the convenient shortcut of
+    '~ .x' instead of the more verbose 'function(.x) .x'.">
 <meta property="og:image" content="https://dapr.mikewk.com/logo.png">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -102,7 +107,9 @@
 <div id="dapr-vs--base-purrr" class="section level2">
 <h2 class="hasAnchor">
 <a href="#dapr-vs--base-purrr" class="anchor"></a>{dapr} vs. {base} &amp; {purrr}?</h2>
-<p><strong>{dapr}</strong> provides the ease and consistency of <a href="https://purrr.tidyverse.org"><strong>{purrr}</strong></a>, including use of <code>~</code> and <code>.x</code>, without all the dependencies. In other words, when you want a purrr-like experience but you need a lightweight solution.</p>
+<p><strong>{dapr}</strong> provides the ease and consistency of <a href="https://purrr.tidyverse.org"><strong>{purrr}</strong></a>, (see also: simple benchmark results plot below) including use of <code>~</code> and <code>.x</code>, without all the dependencies. In other words, use <strong>{dapr}</strong> when you want a purrr-like experience but you need a lightweight solution.</p>
+<p align="center">
+<img src="tools/readme/benchmark.png"></p>
 </div>
 <div id="use" class="section level2">
 <h2 class="hasAnchor">
@@ -119,9 +126,17 @@
 <code><span style="font-weight:bold;text-decoration:underline">d</span>ap</code> for <strong>data frames</strong>
 </li>
 </ul>
+<p>Common inputs:</p>
+<ul>
+<li>
+<code>.data</code> Input object–numeric, character, list, data frame, etc.–over which elements will be iterated. If matrix or data frame, each column will be treated as the elements which are to be iterated over.</li>
+<li>
+<code>.f</code> Function to apply to each element of input object. This can be written as a single function name e.g., <code>mean</code>, a formula-like function call where ‘.x’ is assumed to be the iterated over element of input data e.g., <code>~ mean(.x)</code>, or an in-line function definition e.g., <code>function(x) mean(x)</code>.</li>
+</ul>
 <div id="vectors" class="section level3">
 <h3 class="hasAnchor">
 <a href="#vectors" class="anchor"></a>Vectors</h3>
+<p>Functions that apply expressions to input data objects and return atomic vectors e.g., numeric (double), character, logical.</p>
 <ul>
 <li>
 <strong><code><a href="reference/vap.html">vap_dbl()</a></code></strong> Iterate and return <strong>numeric</strong> vector.</li>
@@ -156,6 +171,7 @@
 <div id="lists" class="section level3">
 <h3 class="hasAnchor">
 <a href="#lists" class="anchor"></a>Lists</h3>
+<p>Function(s) that apply expressions to input data objects and return lists.</p>
 <ul>
 <li>
 <strong><code><a href="reference/lap.html">lap()</a></code></strong> Iterate and return a <strong>list</strong> vector.</li>
@@ -188,6 +204,7 @@
 <div id="data-frames" class="section level3">
 <h3 class="hasAnchor">
 <a href="#data-frames" class="anchor"></a>Data frames</h3>
+<p>Functions that apply expressions to input data objects and return data frames.</p>
 <ul>
 <li>
 <strong><code>dap*()</code></strong> Iterate and return a <strong>data frame</strong>

@@ -41,7 +41,7 @@
   
 <meta property="og:title" content="Iterator list apply — ilap" />
 
-<meta property="og:description" content="Iterate over sequence length of input and return list(s)" />
+<meta property="og:description" content="ilap: Iterate over sequence length of input and return list(s)" />
 
 <meta property="og:image" content="https://dapr.mikewk.com/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -120,7 +120,7 @@
 
     <div class="ref-description">
     
-    <p>Iterate over sequence length of input and return list(s)</p>
+    <p>ilap: Iterate over sequence length of input and return list(s)</p>
     
     </div>
 
@@ -131,11 +131,19 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>.data</th>
-      <td><p>The sequence length, used as ".i" in the following expression</p></td>
+      <td><p>Object representing the sequence length, used as ".i" in the .f
+expression. If matrix or data frame, sequence length will be determined by
+the number of columns. If integer, then it will be passed directly onto
+function call, otherwise the object will be converted into a sequence from
+1 to the length of the object.</p></td>
     </tr>
     <tr>
       <th>.f</th>
-      <td><p>Function or formula call that assumes integer element is .i</p></td>
+      <td><p>Function to apply to each element (as an integer position) of input
+object. This can be written as a single function name e.g., <code>mean</code>, a
+formula-like function call where '.i' is assumed to be the integer position
+of input data object e.g., <code>~ mean(mtcars[[.i]])</code>, or an in-line
+function definition e.g., <code>function(x) mean(mtcars[[x]])</code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -146,6 +154,10 @@
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A list</p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Other lap: <code><a href='lap.html'>lap</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -223,6 +235,8 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

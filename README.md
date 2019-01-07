@@ -33,9 +33,16 @@ remotes::install_github("mkearney/dapr")
 ## {dapr} vs. {base} & {purrr}?
 
 **{dapr}** provides the ease and consistency of
-[**{purrr}**](https://purrr.tidyverse.org), including use of `~` and
-`.x`, without all the dependencies. In other words, when you want a
-purrr-like experience but you need a lightweight solution.
+[**{purrr}**](https://purrr.tidyverse.org), (see also: simple benchmark
+results plot below) including use of `~` and `.x`, without all the
+dependencies. In other words, use **{dapr}** when you want a purrr-like
+experience but you need a lightweight solution.
+
+<p align="center">
+
+<img src="tools/readme/benchmark.png"/>
+
+</p>
 
 ## Use
 
@@ -52,7 +59,22 @@ letter of output data
   - <code><span style="font-weight:bold;text-decoration:underline">d</span>ap</code>
     for **data frames**
 
+Common inputs:
+
+  - `.data` Input object–numeric, character, list, data frame, etc.–over
+    which elements will be iterated. If matrix or data frame, each
+    column will be treated as the elements which are to be iterated
+    over.
+  - `.f` Function to apply to each element of input object. This can be
+    written as a single function name e.g., `mean`, a formula-like
+    function call where ‘.x’ is assumed to be the iterated over element
+    of input data e.g., `~ mean(.x)`, or an in-line function definition
+    e.g., `function(x) mean(x)`.
+
 ### Vectors
+
+Functions that apply expressions to input data objects and return atomic
+vectors e.g., numeric (double), character, logical.
 
   - **`vap_dbl()`** Iterate and return **numeric** vector.
   - **`vap_int()`** Iterate and return **integer** vector.
@@ -85,6 +107,9 @@ vap_chr(e, paste, collapse = "")
 ```
 
 ### Lists
+
+Function(s) that apply expressions to input data objects and return
+lists.
 
   - **`lap()`** Iterate and return a **list** vector.
 
@@ -122,6 +147,9 @@ ilap(1:4, ~ paste0(letters[.i], rev(LETTERS)[.i]))
 ```
 
 ### Data frames
+
+Functions that apply expressions to input data objects and return data
+frames.
 
   - **`dap*()`** Iterate and return a **data frame**
       - **`dapc()`** Iterate over **columns**
