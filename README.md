@@ -67,7 +67,7 @@ Common inputs:
     over.
   - `.f` Function to apply to each element of input object. This can be
     written as a single function name e.g., `mean`, a formula-like
-    function call where ‘.x’ is assumed to be the iterated over element
+    function call where `.x` is assumed to be the iterated over element
     of input data e.g., `~ mean(.x)`, or an in-line function definition
     e.g., `function(x) mean(x)`.
 

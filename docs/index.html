@@ -18,7 +18,7 @@
 <script src="pkgdown.js"></script><link href="extra.css" rel="stylesheet">
 <meta property="og:title" content="Purrr-Like Apply Functions Over Input Elements">
 <meta property="og:description" content="An easy-to-use, dependency-free set of functions for iterating over
-    elements of various input objets. Functions are wrappers around base
+    elements of various input objects. Functions are wrappers around base
     apply/lapply/vapply functions but designed to have similar functionality to
     the mapping functions in the 'purrr' package &lt;https://purrr.tidyverse.org/&gt;.
     Specifically, function names more explicitly communicate the expected class
@@ -131,7 +131,7 @@
 <li>
 <code>.data</code> Input object–numeric, character, list, data frame, etc.–over which elements will be iterated. If matrix or data frame, each column will be treated as the elements which are to be iterated over.</li>
 <li>
-<code>.f</code> Function to apply to each element of input object. This can be written as a single function name e.g., <code>mean</code>, a formula-like function call where ‘.x’ is assumed to be the iterated over element of input data e.g., <code>~ mean(.x)</code>, or an in-line function definition e.g., <code>function(x) mean(x)</code>.</li>
+<code>.f</code> Function to apply to each element of input object. This can be written as a single function name e.g., <code>mean</code>, a formula-like function call where <code>.x</code> is assumed to be the iterated over element of input data e.g., <code>~ mean(.x)</code>, or an in-line function definition e.g., <code>function(x) mean(x)</code>.</li>
 </ul>
 <div id="vectors" class="section level3">
 <h3 class="hasAnchor">
