@@ -1,5 +1,5 @@
 Package: dapr
-Title: Purrr-like Apply Functions Over Input Elements
+Title: Purrr-Like Apply Functions Over Input Elements
 Version: 0.0.2
 Authors@R: 
     person(given = "Michael W.",
