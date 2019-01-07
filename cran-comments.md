@@ -2,8 +2,9 @@ In response to previous review, I made the following changes:
 
 1. Changed the package title line in DESCRIPTION from 'Easy Apply Functions' to
 'Purrr-Like Apply Functions Over Input Elements'
-1. Added considerably to the description of functions and arguments especially
-as it relates to the use of this package compared to base apply functions.
+1. Added to DESCRIPTION and documentation more detailed and distinguishing
+descriptions of functions and arguments especially as it relates to the use of
+this package compared to base apply functions.
 
 ## Test environments
 * local OS X install, R 3.5.2
