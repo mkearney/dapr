@@ -42,8 +42,9 @@ vap_dbl <- function(.data, .f, ...) UseMethod("vap_dbl")
 vap_dbl.default <- function(.data, .f, ...) {
   if (is_lang(.f)) {
     e <- call_env()
+    .f <- eval(.f, envir = e)[[2]]
     vapply(.data,
-      function(.x) eval(eval(.f, envir = e)[[2]], list(.x = .x), e),
+      function(.x) eval(.f, list(.x = .x), e),
       FUN.VALUE = numeric(1),
       USE.NAMES = FALSE)
   } else {
@@ -69,8 +70,9 @@ vap_chr <- function(.data, .f, ...) UseMethod("vap_chr")
 vap_chr.default <- function(.data, .f, ...) {
   if (is_lang(.f)) {
     e <- call_env()
+    .f <- eval(.f, envir = e)[[2]]
     vapply(.data,
-      function(.x) eval(eval(.f, envir = e)[[2]], list(.x = .x), e),
+      function(.x) eval(.f, list(.x = .x), e),
       FUN.VALUE = character(1),
       USE.NAMES = FALSE)
   } else {
@@ -95,8 +97,9 @@ vap_lgl <- function(.data, .f, ...) UseMethod("vap_lgl")
 vap_lgl.default <- function(.data, .f, ...) {
   if (is_lang(.f)) {
     e <- call_env()
+    .f <- eval(.f, envir = e)[[2]]
     vapply(.data,
-      function(.x) eval(eval(.f, envir = e)[[2]], list(.x = .x), e),
+      function(.x) eval(.f, list(.x = .x), e),
       FUN.VALUE = logical(1),
       USE.NAMES = FALSE)
   } else {
@@ -122,8 +125,9 @@ vap_int <- function(.data, .f, ...) UseMethod("vap_int")
 vap_int.default <- function(.data, .f, ...) {
   if (is_lang(.f)) {
     e <- call_env()
+    .f <- eval(.f, envir = e)[[2]]
     vapply(.data,
-      function(.x) eval(eval(.f, envir = e)[[2]], list(.x = .x), e),
+      function(.x) eval(.f, list(.x = .x), e),
       FUN.VALUE = integer(1),
       USE.NAMES = FALSE)
   } else {

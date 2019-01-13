@@ -28,8 +28,9 @@ dapc <- function(.data, .f, ...) UseMethod("dapc")
 dapc.default <- function(.data, .f, ...) {
   if (is_lang(.f)) {
     e <- call_env()
+    .f <- eval(.f, envir = e)[[2]]
     .data[] <- lapply(.data, function(.x) {
-      eval(eval(.f, envir = e)[[2]], list(.x = .x), e)
+      eval(.f, list(.x = .x), e)
     })
   } else {
     .data[] <- lapply(.data, .f, ...)
@@ -47,8 +48,9 @@ dapr <- function(.data, .f, ...) UseMethod("dapr")
 dapr.default <- function(.data, .f, ...) {
   if (is_lang(.f)) {
     e <- call_env()
+    .f <- eval(.f, envir = e)[[2]]
     .data[seq_len(nrow(.data)), ] <- t(apply(.data, 1,
-      function(.x) eval(eval(.f, envir = e)[[2]], list(.x = .x), e)
+      function(.x) eval(.f, list(.x = .x), e)
     ))
   } else {
     .data[seq_len(nrow(.data)), ] <- t(apply(.data, 1, .f, ...))
@@ -82,8 +84,9 @@ dapc_if.default <- function(.data, .predicate, .f, ...) {
     lg <- .predicate
   } else if (is_lang(.predicate)) {
     e <- call_env()
+    .predicate <- eval(.predicate, envir = e)[[2]]
     lg <- vapply(.data,
-      function(.x) eval(eval(.predicate, envir = e)[[2]], list(.x = .x), e),
+      function(.x) eval(.predicate, list(.x = .x), e),
       FUN.VALUE = logical(1),
       USE.NAMES = FALSE)
   } else {
@@ -95,8 +98,9 @@ dapc_if.default <- function(.data, .predicate, .f, ...) {
 
   if (is_lang(.f)) {
     e <- call_env()
+    .f <- eval(.f, envir = e)[[2]]
     .data[lg] <- lapply(.data[lg],
-      function(.x) eval(eval(.f, envir = e)[[2]], list(.x = .x), e)
+      function(.x) eval(.f, list(.x = .x), e)
     )
   } else {
     .data[lg] <- lapply(.data[lg], .f, ...)
@@ -119,8 +123,9 @@ dapr_if.default <- function(.data, .predicate, .f, ...) {
     lg <- .predicate
   } else if (is_lang(.predicate)) {
     e <- call_env()
+    .predicate <- eval(.predicate, envir = e)[[2]]
     lg <- unlist(apply(.data, 1,
-      function(.x) eval(eval(.predicate, envir = e)[[2]], list(.x = .x), e)
+      function(.x) eval(.predicate, list(.x = .x), e)
     ))
   } else {
     lg <- vapply(.data, .predicate,
@@ -132,8 +137,9 @@ dapr_if.default <- function(.data, .predicate, .f, ...) {
 
   if (is_lang(.f)) {
     e <- call_env()
+    .f <- eval(.f, envir = e)[[2]]
     .data[lg, ] <- t(apply(.data[lg, ], 1,
-      function(.x) eval(eval(.f, envir = e)[[2]], list(.x = .x), e)
+      function(.x) eval(.f, list(.x = .x), e)
     ))
   } else {
     .data[lg, ] <- t(apply(.data[lg, ], 1, .f, ...))

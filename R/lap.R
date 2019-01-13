@@ -34,13 +34,14 @@ lap <- function(.data, .f, ...) UseMethod("lap")
 
 #' @export
 lap.default <- function(.data, .f, ...) {
+  is_vector(.data)
   if (is_lang(.f)) {
     e <- call_env()
+    .f <- eval(.f, envir = e)[[2]]
     lapply(.data, function(.x) {
-      eval(eval(.f, envir = e)[[2]], list(.x = .x), e)
+      eval(.f, list(.x = .x), e)
     })
   } else {
     lapply(.data, .f, ...)
   }
 }
-

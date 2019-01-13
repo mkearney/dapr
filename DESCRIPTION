@@ -1,5 +1,5 @@
 Package: dapr
-Title: Purrr-Like Apply Functions Over Input Elements
+Title: 'purrr'-Like Apply Functions Over Input Elements
 Version: 0.0.2
 Authors@R: 
     person(given = "Michael W.",
@@ -9,7 +9,7 @@ Authors@R:
            comment = c(ORCID = "0000-0002-0730-4694"))
 Description: An easy-to-use, dependency-free set of functions for iterating over
     elements of various input objects. Functions are wrappers around base
-    'apply'/'lapply'/'vapply' functions but designed to have similar
+    apply()/lapply()/vapply() functions but designed to have similar
     functionality to the mapping functions in the 'purrr' package
     <https://purrr.tidyverse.org/>. Specifically, function names more explicitly
     communicate the expected class of the output and functions also allow for
