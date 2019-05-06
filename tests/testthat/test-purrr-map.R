@@ -11,8 +11,8 @@ test_that("creates simple call", {
 })
 
 test_that("fails on non-vectors", {
-  expect_error(lap(environment(), identity), "`.x` must be a vector")
-  expect_error(lap(quote(a), identity), "`.x` must be a vector")
+  expect_error(lap(environment(), identity), "is_vector.*is not TRUE")
+  expect_error(lap(quote(a), identity), "is_vector.*is not TRUE")
 })
 
 test_that("0 length input gives 0 length output", {
