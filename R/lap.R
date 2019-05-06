@@ -34,7 +34,8 @@ lap <- function(.data, .f, ...) UseMethod("lap")
 
 #' @export
 lap.default <- function(.data, .f, ...) {
-  is_vector(.data)
+  assert_that(is_vector(.data))
+
   if (is_lang(.f)) {
     e <- call_env()
     .f <- eval(.f, envir = e)[[2]]

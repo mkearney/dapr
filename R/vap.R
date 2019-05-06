@@ -45,12 +45,10 @@ vap_dbl.default <- function(.data, .f, ...) {
     .f <- eval(.f, envir = e)[[2]]
     vapply(.data,
       function(.x) eval(.f, list(.x = .x), e),
-      FUN.VALUE = numeric(1),
-      USE.NAMES = FALSE)
+      FUN.VALUE = numeric(1))
   } else {
     vapply(.data, .f, ...,
-      FUN.VALUE = numeric(1),
-      USE.NAMES = FALSE)
+      FUN.VALUE = numeric(1))
   }
 }
 
@@ -73,12 +71,10 @@ vap_chr.default <- function(.data, .f, ...) {
     .f <- eval(.f, envir = e)[[2]]
     vapply(.data,
       function(.x) eval(.f, list(.x = .x), e),
-      FUN.VALUE = character(1),
-      USE.NAMES = FALSE)
+      FUN.VALUE = character(1))
   } else {
     vapply(.data, .f, ...,
-      FUN.VALUE = character(1),
-      USE.NAMES = FALSE)
+      FUN.VALUE = character(1))
   }
 }
 
@@ -100,12 +96,10 @@ vap_lgl.default <- function(.data, .f, ...) {
     .f <- eval(.f, envir = e)[[2]]
     vapply(.data,
       function(.x) eval(.f, list(.x = .x), e),
-      FUN.VALUE = logical(1),
-      USE.NAMES = FALSE)
+      FUN.VALUE = logical(1))
   } else {
     vapply(.data, .f, ...,
-      FUN.VALUE = logical(1),
-      USE.NAMES = FALSE)
+      FUN.VALUE = logical(1))
   }
 }
 
@@ -128,11 +122,9 @@ vap_int.default <- function(.data, .f, ...) {
     .f <- eval(.f, envir = e)[[2]]
     vapply(.data,
       function(.x) eval(.f, list(.x = .x), e),
-      FUN.VALUE = integer(1),
-      USE.NAMES = FALSE)
+      FUN.VALUE = integer(1))
   } else {
     vapply(.data, .f, ...,
-      FUN.VALUE = integer(1),
-      USE.NAMES = FALSE)
+      FUN.VALUE = integer(1))
   }
 }

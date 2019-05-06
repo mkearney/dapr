@@ -26,6 +26,8 @@ dapc <- function(.data, .f, ...) UseMethod("dapc")
 
 #' @export
 dapc.default <- function(.data, .f, ...) {
+  assert_that(is_vector(.data))
+
   if (is_lang(.f)) {
     e <- call_env()
     .f <- eval(.f, envir = e)[[2]]
@@ -46,6 +48,8 @@ dapr <- function(.data, .f, ...) UseMethod("dapr")
 
 #' @export
 dapr.default <- function(.data, .f, ...) {
+  assert_that(is_vector(.data))
+
   if (is_lang(.f)) {
     e <- call_env()
     .f <- eval(.f, envir = e)[[2]]
@@ -80,6 +84,8 @@ dapc_if <- function(.data, .predicate, .f, ...) UseMethod("dapc_if")
 
 #' @export
 dapc_if.default <- function(.data, .predicate, .f, ...) {
+  assert_that(is_vector(.data))
+
   if (is.logical(.predicate)) {
     lg <- .predicate
   } else if (is_lang(.predicate)) {
@@ -87,14 +93,12 @@ dapc_if.default <- function(.data, .predicate, .f, ...) {
     .predicate <- eval(.predicate, envir = e)[[2]]
     lg <- vapply(.data,
       function(.x) eval(.predicate, list(.x = .x), e),
-      FUN.VALUE = logical(1),
-      USE.NAMES = FALSE)
+      FUN.VALUE = logical(1))
   } else {
     lg <- vapply(.data, .predicate,
-      FUN.VALUE = logical(1),
-      USE.NAMES = FALSE)
+      FUN.VALUE = logical(1))
   }
-  stopifnot(is.logical(lg))
+  assert_that(is.logical(lg))
 
   if (is_lang(.f)) {
     e <- call_env()
@@ -119,6 +123,8 @@ dapr_if <- function(.data, .predicate, .f, ...) UseMethod("dapr_if")
 
 #' @export
 dapr_if.default <- function(.data, .predicate, .f, ...) {
+  assert_that(is_vector(.data))
+
   if (is.logical(.predicate)) {
     lg <- .predicate
   } else if (is_lang(.predicate)) {
@@ -129,10 +135,9 @@ dapr_if.default <- function(.data, .predicate, .f, ...) {
     ))
   } else {
     lg <- vapply(.data, .predicate,
-      FUN.VALUE = logical(1),
-      USE.NAMES = FALSE)
+      FUN.VALUE = logical(1))
   }
-  stopifnot(is.logical(lg))
+  assert_that(is.logical(lg))
   if (sum(lg) == 0) return(.data)
 
   if (is_lang(.f)) {

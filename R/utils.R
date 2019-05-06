@@ -6,5 +6,8 @@ is_vector <- function(x) {
   if (is.atomic(x) || is.list(x) || is.call(x)) {
     return(TRUE)
   }
-  stop("`.x` must be a vector", call. = FALSE)
+  FALSE
 }
+
+"%||%" <- function(a, b) if (is.null(a)) b else a
+
