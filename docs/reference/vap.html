@@ -79,7 +79,7 @@ vap_int: Iterate over input and return integer(s)" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">dapr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.3</span>
       </span>
     </div>
 
@@ -180,14 +180,17 @@ input data e.g., <code>~ mean(.x)</code>, or an in-line function definition e.g.
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>## character</span>
-<span class='fu'>vap_chr</span>(<span class='no'>letters</span>, ~ <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/paste'>paste0</a></span>(<span class='no'>.x</span>, <span class='st'>"."</span>))</div><div class='output co'>#&gt;  [1] "a." "b." "c." "d." "e." "f." "g." "h." "i." "j." "k." "l." "m." "n." "o."
-#&gt; [16] "p." "q." "r." "s." "t." "u." "v." "w." "x." "y." "z."</div><div class='input'>
+<span class='fu'>vap_chr</span>(<span class='no'>letters</span>, ~ <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/paste'>paste0</a></span>(<span class='no'>.x</span>, <span class='st'>"."</span>))</div><div class='output co'>#&gt;    a    b    c    d    e    f    g    h    i    j    k    l    m    n    o    p 
+#&gt; "a." "b." "c." "d." "e." "f." "g." "h." "i." "j." "k." "l." "m." "n." "o." "p." 
+#&gt;    q    r    s    t    u    v    w    x    y    z 
+#&gt; "q." "r." "s." "t." "u." "v." "w." "x." "y." "z." </div><div class='input'>
 <span class='co'>## double</span>
 <span class='fu'>vap_dbl</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>4</span>), <span class='no'>round</span>, <span class='fl'>3</span>)</div><div class='output co'>#&gt; [1] -1.400  0.255 -2.437 -0.006</div><div class='input'>
 <span class='co'>## logical</span>
-<span class='fu'>vap_lgl</span>(<span class='no'>letters</span>, ~ <span class='no'>.x</span> <span class='kw'>%in%</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"a"</span>, <span class='st'>"e"</span>, <span class='st'>"i"</span>, <span class='st'>"o"</span>, <span class='st'>"u"</span>))</div><div class='output co'>#&gt;  [1]  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE
-#&gt; [13] FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE
-#&gt; [25] FALSE FALSE</div><div class='input'>
+<span class='fu'>vap_lgl</span>(<span class='no'>letters</span>, ~ <span class='no'>.x</span> <span class='kw'>%in%</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"a"</span>, <span class='st'>"e"</span>, <span class='st'>"i"</span>, <span class='st'>"o"</span>, <span class='st'>"u"</span>))</div><div class='output co'>#&gt;     a     b     c     d     e     f     g     h     i     j     k     l     m 
+#&gt;  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE 
+#&gt;     n     o     p     q     r     s     t     u     v     w     x     y     z 
+#&gt; FALSE  TRUE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE </div><div class='input'>
 <span class='co'>## integer</span>
 <span class='fu'>vap_int</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>5</span>), ~ <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/integer'>as.integer</a></span>(<span class='no'>.x</span>))</div><div class='output co'>#&gt; [1]  0  1 -1  0  0</div><div class='input'>
 </div></pre>
