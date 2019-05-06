@@ -47,15 +47,12 @@ experience but you need a lightweight solution.
 ## Use
 
 Function names use the convention `*ap()` where **`*`** is the first
-letter of output data
-    type.
+letter of output data type.
 
   - <code><span style="font-weight:bold;text-decoration:underline">v</span>ap</code>
-    for
-    **vectors**
+    for **vectors**
   - <code><span style="font-weight:bold;text-decoration:underline">l</span>ap</code>
-    for
-    **lists**
+    for **lists**
   - <code><span style="font-weight:bold;text-decoration:underline">d</span>ap</code>
     for **data frames**
 
@@ -91,7 +88,7 @@ e <- replicate(5, sample(letters, 10), simplify = FALSE)
 
 ## numeric
 vap_dbl(d, ~ mean(.x))
-#> [1]  0.2693453 -0.5523232  0.0555929 -0.0625326 -0.1118376
+#> [1]  0.26934527 -0.55232322  0.05559290 -0.06253258 -0.11183760
 
 ## integer
 vap_int(d, length)
@@ -192,8 +189,8 @@ dapc_if(d, is.numeric, ~ round(.x, 4))
 
 ## conditional ROWS
 dapr_if(d[-1], ~ sum(.x) >= -.7, ~ round(.x, 0))
-#>          b        c
-#> 1  0.00000  0.00000
-#> 2 -1.86861  1.08116
-#> 3  1.00000 -1.00000
+#>           b         c
+#> 1  0.000000  0.000000
+#> 2 -1.868615  1.081164
+#> 3  1.000000 -1.000000
 ```
