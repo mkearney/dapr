@@ -2,9 +2,12 @@
 % Please edit documentation in R/lap.R
 \name{lap}
 \alias{lap}
+\alias{lap2}
 \title{lap: List apply functions}
 \usage{
 lap(.data, .f, ...)
+
+lap2(.x, .y, .f, ...)
 }
 \arguments{
 \item{.data}{Input object–numeric, character, list, data frame, etc.–over
@@ -18,6 +21,10 @@ input data e.g., \code{~ mean(.x)}, or an in-line function definition e.g.,
 \code{function(x) mean(x)}.}
 
 \item{...}{Other values passed to function call.}
+
+\item{.x}{First data vector input (for lap2)}
+
+\item{.y}{Second data vector input (for lap2)}
 }
 \value{
 A list
@@ -34,6 +41,9 @@ lap(letters, ~ paste0(.x, "."))
 
 ## return list of columns
 lap(mtcars[1:5, ], as.character)
+
+## map over two vectors
+lap2(letters, LETTERS, ~ paste0(.x, .y, .x, .y))
 
 }
 \seealso{

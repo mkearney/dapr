@@ -29,6 +29,9 @@ NULL
 #' ## return list of columns
 #' lap(mtcars[1:5, ], as.character)
 #'
+#' ## map over two vectors
+#' lap2(letters, LETTERS, ~ paste0(.x, .y, .x, .y))
+#'
 #' @export
 lap <- function(.data, .f, ...) UseMethod("lap")
 
@@ -44,5 +47,35 @@ lap.default <- function(.data, .f, ...) {
     })
   } else {
     lapply(.data, .f, ...)
+  }
+}
+
+#' @rdname lap
+#' @inheritParams lap
+#' @param .x First data vector input (for lap2)
+#' @param .y Second data vector input (for lap2)
+#' @export
+lap2 <- function(.x, .y, .f, ...) UseMethod("lap2")
+
+#' @export
+lap2.default <- function(.x, .y, .f, ...) {
+  assert_that(is_vector(.x))
+  assert_that(is_vector(.y))
+  assert_that(length(.x) == length(.y))
+
+  if (is_lang(.f)) {
+    e <- call_env()
+    .f <- eval(.f, envir = e)[[2]]
+    # .f <- as.call(.f)
+    # tfse::cat_line(class(.f))
+    # tfse::cat_line(deparse(.f))
+    # mapply(
+    #   .f, .x, .y, SIMPLIFY = FALSE
+    # )
+    lapply(seq_along(.x), function(.i) {
+      eval(.f, list(.x = .x[[.i]], .y = .y[[.i]]), e)
+    })
+  } else {
+    mapply(.f, .x, .y, ..., SIMPLIFY = FALSE)
   }
 }
