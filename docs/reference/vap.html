@@ -41,8 +41,8 @@
   
 <meta property="og:title" content="vap: Vector apply functions — vap" />
 
-<meta property="og:description" content="Functions that apply expressions to input data objects and return atomic
-vectors e.g., numeric (double), character, logical.
+<meta property="og:description" content="Functions that apply expressions to input objects and return atomic vectors
+e.g., numeric (double), integer, character, logical.
 vap_dbl: Iterate over input and return double(s)
 vap_chr: Iterate over input and return character(s)
 vap_lgl: Iterate over input and return logical(s)
@@ -125,8 +125,8 @@ vap_int: Iterate over input and return integer(s)" />
 
     <div class="ref-description">
     
-    <p>Functions that apply expressions to input data objects and return atomic
-vectors e.g., numeric (double), character, logical.</p>
+    <p>Functions that apply expressions to input objects and return atomic vectors
+e.g., numeric (double), integer, character, logical.</p>
 <p>vap_dbl: Iterate over input and return double(s)</p>
 <p>vap_chr: Iterate over input and return character(s)</p>
 <p>vap_lgl: Iterate over input and return logical(s)</p>
@@ -149,15 +149,19 @@ vectors e.g., numeric (double), character, logical.</p>
       <th>.data</th>
       <td><p>Input object–numeric, character, list, data frame, etc.–over
 which elements will be iterated. If matrix or data frame, each
-column will be treated as the elements which are to be iterated over.</p></td>
+column will be treated as an element.</p></td>
     </tr>
     <tr>
       <th>.f</th>
-      <td><p>Function to apply to each element of input object. This can be
-written as a single function name e.g., <code>mean</code>, a formula-like
-function call where '.x' is assumed to be the iterated over element of
-input data e.g., <code>~ mean(.x)</code>, or an in-line function definition e.g.,
-<code>function(x) mean(x)</code>.</p></td>
+      <td><p>Action to apply to each element of <code>.data</code>. The action can be
+  articulated in one of the four following ways:</p><ol>
+<li><p>supplying a function object (e.g., <code>mean</code>)</p></li>
+<li><p>defining a function (in-line; e.g., <code>function(x) mean(x)</code>)</p></li>
+<li><p>specifying a formula-like call where '.x' is assumed to be the iterated
+  over element of <code>.data</code> (e.g., <code>~ mean(.x)</code>)</p></li>
+<li><p>providing a name or position of <code>.data</code> to return (e.g.,
+  <code>1</code>, <code>"varname"</code>, etc.)</p></li>
+</ol></td>
     </tr>
     <tr>
       <th>...</th>
@@ -170,11 +174,12 @@ input data e.g., <code>~ mean(.x)</code>, or an in-line function definition e.g.
     <p>A double vector</p>
 <p>A character vector</p>
 <p>A logical vector</p>
-<p>A integer vector</p>
+<p>An integer vector</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='dap.html'>dap</a></code> <code><a href='lap.html'>lap</a></code></p></div>
+    <div class='dont-index'><p><code><a href='lap.html'>lap</a></code>  <code><a href='dap.html'>dap</a></code></p>
+<p>Other vap: <code><a href='vapc.html'>vapc</a></code>, <code><a href='vapr.html'>vapr</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -192,7 +197,7 @@ input data e.g., <code>~ mean(.x)</code>, or an in-line function definition e.g.
 #&gt;     n     o     p     q     r     s     t     u     v     w     x     y     z 
 #&gt; FALSE  TRUE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE </div><div class='input'>
 <span class='co'>## integer</span>
-<span class='fu'>vap_int</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>5</span>), ~ <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/integer'>as.integer</a></span>(<span class='no'>.x</span>))</div><div class='output co'>#&gt; [1]  0  1 -1  0  0</div><div class='input'>
+<span class='fu'>vap_int</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/as.data.frame'>as.data.frame</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/lapply'>replicate</a></span>(<span class='fl'>10</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sample'>sample</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>))), <span class='fl'>8</span>)</div><div class='output co'>#&gt;  [1]  9  4  5  8  2  6  7  3  1 10</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

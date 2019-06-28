@@ -19,13 +19,18 @@ vap_int(.data, .f, ...)
 \arguments{
 \item{.data}{Input object–numeric, character, list, data frame, etc.–over
 which elements will be iterated. If matrix or data frame, each
-column will be treated as the elements which are to be iterated over.}
+column will be treated as an element.}
 
-\item{.f}{Function to apply to each element of input object. This can be
-written as a single function name e.g., \code{mean}, a formula-like
-function call where '.x' is assumed to be the iterated over element of
-input data e.g., \code{~ mean(.x)}, or an in-line function definition e.g.,
-\code{function(x) mean(x)}.}
+\item{.f}{Action to apply to each element of \code{.data}. The action can be
+  articulated in one of the four following ways:
+\enumerate{
+\item supplying a function object (e.g., \code{mean})
+\item defining a function (in-line; e.g., \code{function(x) mean(x)})
+\item specifying a formula-like call where '.x' is assumed to be the iterated
+  over element of \code{.data} (e.g., \code{~ mean(.x)})
+\item providing a name or position of \code{.data} to return (e.g.,
+  \code{1}, \code{"varname"}, etc.)
+}}
 
 \item{...}{Other values passed to function call.}
 }
@@ -36,11 +41,11 @@ A character vector
 
 A logical vector
 
-A integer vector
+An integer vector
 }
 \description{
-Functions that apply expressions to input data objects and return atomic
-vectors e.g., numeric (double), character, logical.
+Functions that apply expressions to input objects and return atomic vectors
+e.g., numeric (double), integer, character, logical.
 
 vap_dbl: Iterate over input and return double(s)
 
@@ -62,9 +67,12 @@ vap_dbl(rnorm(4), round, 3)
 vap_lgl(letters, ~ .x \%in\% c("a", "e", "i", "o", "u"))
 
 ## integer
-vap_int(rnorm(5), ~ as.integer(.x))
+vap_int(as.data.frame(replicate(10, sample(1:10))), 8)
 
 }
 \seealso{
-\code{\link{dap}} \code{\link{lap}}
+\code{\link{lap}}  \code{\link{dap}}
+
+Other vap: \code{\link{vapc}}, \code{\link{vapr}}
 }
+\concept{vap}

@@ -50,6 +50,52 @@ lap.default <- function(.data, .f, ...) {
   }
 }
 
+
+#' List apply-to-row
+#'
+#' lapr: Iterate over input rows and return list(s)
+#'
+#' @rdname lap
+#' @inheritParams lap
+#' @export
+lapr <- function(.data, .f, ...) {
+  assert_that(is_2d(.data))
+  if (is_lang(.f)) {
+    e <- call_env()
+    .f <- eval(.f, envir = e)[[2]]
+    lapply(seq_len(nrow(.data)), function(.i) {
+      eval(.f, list(.x = .data[.i, , drop = FALSE]), e)
+    })
+  } else {
+    lapply(seq_len(nrow(.data)), function(.i) {
+      .f(.data[.i, , drop = FALSE], ...)
+    })
+  }
+}
+
+#' List apply-to-column
+#'
+#' lapr: Iterate over input columbs and return list(s)
+#'
+#' @rdname lap
+#' @inheritParams lap
+#' @export
+lapc <- function(.data, .f, ...) {
+  assert_that(is_2d(.data))
+  if (is_lang(.f)) {
+    e <- call_env()
+    .f <- eval(.f, envir = e)[[2]]
+    lapply(seq_len(ncol(.data)), function(.i) {
+      eval(.f, list(.x = .data[, .i, drop = FALSE]), e)
+    })
+  } else {
+    lapply(seq_len(ncol(.data)), function(.i) {
+      .f(.data[, .i, drop = FALSE], ...)
+    })
+  }
+}
+
+
 #' @rdname lap
 #' @inheritParams lap
 #' @param .x First data vector input (for lap2)

@@ -2,10 +2,16 @@
 % Please edit documentation in R/lap.R
 \name{lap}
 \alias{lap}
+\alias{lapr}
+\alias{lapc}
 \alias{lap2}
 \title{lap: List apply functions}
 \usage{
 lap(.data, .f, ...)
+
+lapr(.data, .f, ...)
+
+lapc(.data, .f, ...)
 
 lap2(.x, .y, .f, ...)
 }
@@ -33,6 +39,10 @@ A list
 Function(s) that apply expressions to input data objects and return lists.
 
 lap: Iterate over input and return list(s)
+
+lapr: Iterate over input rows and return list(s)
+
+lapr: Iterate over input columbs and return list(s)
 }
 \examples{
 

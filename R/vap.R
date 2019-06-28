@@ -1,10 +1,11 @@
 #' vap: Vector apply functions
 #'
-#' Functions that apply expressions to input data objects and return atomic
-#' vectors e.g., numeric (double), character, logical.
+#' Functions that apply expressions to input objects and return atomic vectors
+#' e.g., numeric (double), integer, character, logical.
 #'
 #' @name vap
-#' @seealso \code{\link{dap}} \code{\link{lap}}
+#' @family vap
+#' @seealso \code{\link{lap}}  \code{\link{dap}}
 NULL
 
 #' Vector apply double
@@ -13,12 +14,17 @@ NULL
 #'
 #' @param .data Input object–numeric, character, list, data frame, etc.–over
 #'   which elements will be iterated. If matrix or data frame, each
-#'   column will be treated as the elements which are to be iterated over.
-#' @param .f Function to apply to each element of input object. This can be
-#'   written as a single function name e.g., \code{mean}, a formula-like
-#'   function call where '.x' is assumed to be the iterated over element of
-#'   input data e.g., \code{~ mean(.x)}, or an in-line function definition e.g.,
-#'   \code{function(x) mean(x)}.
+#'   column will be treated as an element.
+#' @param .f Action to apply to each element of \code{.data}. The action can be
+#'   articulated in one of the four following ways:
+#' \enumerate{
+#' \item supplying a function object (e.g., \code{mean})
+#' \item defining a function (in-line; e.g., \code{function(x) mean(x)})
+#' \item specifying a formula-like call where '.x' is assumed to be the iterated
+#'   over element of \code{.data} (e.g., \code{~ mean(.x)})
+#' \item providing a name or position of \code{.data} to return (e.g.,
+#'   \code{1}, \code{"varname"}, etc.)
+#' }
 #' @return A double vector
 #' @export
 #' @examples
@@ -33,7 +39,7 @@ NULL
 #' vap_lgl(letters, ~ .x %in% c("a", "e", "i", "o", "u"))
 #'
 #' ## integer
-#' vap_int(rnorm(5), ~ as.integer(.x))
+#' vap_int(as.data.frame(replicate(10, sample(1:10))), 8)
 #'
 #' @rdname vap
 vap_dbl <- function(.data, .f, ...) UseMethod("vap_dbl")
@@ -46,6 +52,8 @@ vap_dbl.default <- function(.data, .f, ...) {
     vapply(.data,
       function(.x) eval(.f, list(.x = .x), e),
       FUN.VALUE = numeric(1))
+  } else if (is.atomic(.f)) {
+    as.numeric(getElement(.data, .f))
   } else {
     vapply(.data, .f, ...,
       FUN.VALUE = numeric(1))
@@ -72,6 +80,8 @@ vap_chr.default <- function(.data, .f, ...) {
     vapply(.data,
       function(.x) eval(.f, list(.x = .x), e),
       FUN.VALUE = character(1))
+  } else if (is.atomic(.f)) {
+    as.character(getElement(.data, .f))
   } else {
     vapply(.data, .f, ...,
       FUN.VALUE = character(1))
@@ -97,6 +107,8 @@ vap_lgl.default <- function(.data, .f, ...) {
     vapply(.data,
       function(.x) eval(.f, list(.x = .x), e),
       FUN.VALUE = logical(1))
+  } else if (is.atomic(.f)) {
+    as.logical(getElement(.data, .f))
   } else {
     vapply(.data, .f, ...,
       FUN.VALUE = logical(1))
@@ -110,7 +122,7 @@ vap_lgl.default <- function(.data, .f, ...) {
 #' vap_int: Iterate over input and return integer(s)
 #'
 #' @inheritParams vap_dbl
-#' @return A integer vector
+#' @return An integer vector
 #' @export
 #' @rdname vap
 vap_int <- function(.data, .f, ...) UseMethod("vap_int")
@@ -123,8 +135,17 @@ vap_int.default <- function(.data, .f, ...) {
     vapply(.data,
       function(.x) eval(.f, list(.x = .x), e),
       FUN.VALUE = integer(1))
+  } else if (is.atomic(.f)) {
+    as.integer(getElement(.data, .f))
   } else {
     vapply(.data, .f, ...,
       FUN.VALUE = integer(1))
   }
 }
+
+
+
+
+
+
+

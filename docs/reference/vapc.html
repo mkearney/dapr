@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Changelog • dapr</title>
+<title>vapr: Vector apply-to-column functions — vapc • dapr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -39,7 +39,14 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Changelog" />
+<meta property="og:title" content="vapr: Vector apply-to-column functions — vapc" />
+
+<meta property="og:description" content="Functions that apply expressions to the columns of input objects and return
+atomic vectors e.g., numeric (double), integer, character, logical.
+vapc_chr: Iterate over input columns and return character(s)
+vapc_dbl: Iterate over input columns and return numeric(s)
+vapc_lgl: Iterate over input columns and return logical(s)
+vapc_int: Iterate over input columns and return integer(s)" />
 
 <meta property="og:image" content="https://dapr.mikewk.com/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -59,7 +66,7 @@
   </head>
 
   <body>
-    <div class="container template-news">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -111,60 +118,81 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Changelog <small></small></h1>
-      <small>Source: <a href='https://github.com/mkearney/dapr/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
+    <h1>vapr: Vector apply-to-column functions</h1>
+    <small class="dont-index">Source: <a href='https://github.com/mkearney/dapr/blob/master/R/vapc.R'><code>R/vapc.R</code></a></small>
+    <div class="hidden name"><code>vapc.Rd</code></div>
     </div>
 
-    <div id="dapr-004" class="section level1">
-<h1 class="page-header">
-<a href="#dapr-004" class="anchor"></a>dapr 0.0.4<small> Unreleased </small>
-</h1>
-<ul>
-<li>Functions can now return index names/positions</li>
-<li>Added row and column-wise versions, i.e., <code><a href="../reference/lap.html">lapr()</a></code>, <code><a href="../reference/vapc.html">vapc_chr()</a></code>, etc.</li>
-<li>Improved documentation</li>
-</ul>
-</div>
-    <div id="dapr-003" class="section level1">
-<h1 class="page-header">
-<a href="#dapr-003" class="anchor"></a>dapr 0.0.3<small> 2019-05-06 </small>
-</h1>
-<ul>
-<li>Naming behaviors now mirror defaults of base <code><a href="https://www.rdocumentation.org/packages/base/topics/lapply">lapply()</a></code> and <code><a href="https://www.rdocumentation.org/packages/base/topics/lapply">vapply()</a></code>, so functions now return names</li>
-<li>More consistent assert-based error messaging</li>
-</ul>
-</div>
-    <div id="dapr-002" class="section level1">
-<h1 class="page-header">
-<a href="#dapr-002" class="anchor"></a>dapr 0.0.2<small> 2019-01-20 </small>
-</h1>
-<ul>
-<li>Added tests and other documentation</li>
-</ul>
-</div>
-    <div id="dapr-001" class="section level1">
-<h1 class="page-header">
-<a href="#dapr-001" class="anchor"></a>dapr 0.0.1<small> Unreleased </small>
-</h1>
-<ul>
-<li>Added a <code>NEWS.md</code> file to track changes to the package.</li>
-<li>Initial commit with the <code><a href="../reference/lap.html">lap()</a></code>, <code>vap_*()</code>, and <code>dap*()</code> functions.</li>
-</ul>
-</div>
-  </div>
+    <div class="ref-description">
+    
+    <p>Functions that apply expressions to the columns of input objects and return
+atomic vectors e.g., numeric (double), integer, character, logical.</p>
+<p>vapc_chr: Iterate over input <strong>columns</strong> and return <strong>character(s)</strong></p>
+<p>vapc_dbl: Iterate over input <strong>columns</strong> and return <strong>numeric(s)</strong></p>
+<p>vapc_lgl: Iterate over input <strong>columns</strong> and return <strong>logical(s)</strong></p>
+<p>vapc_int: Iterate over input <strong>columns</strong> and return <strong>integer(s)</strong></p>
+    
+    </div>
 
+    <pre class="usage"><span class='fu'>vapc_chr</span>(<span class='no'>.data</span>, <span class='no'>.f</span>, <span class='no'>...</span>)
+
+<span class='fu'>vapc_dbl</span>(<span class='no'>.data</span>, <span class='no'>.f</span>, <span class='no'>...</span>)
+
+<span class='fu'>vapc_lgl</span>(<span class='no'>.data</span>, <span class='no'>.f</span>, <span class='no'>...</span>)
+
+<span class='fu'>vapc_int</span>(<span class='no'>.data</span>, <span class='no'>.f</span>, <span class='no'>...</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>.data</th>
+      <td><p>Input object–must be two-dimensional (e.g., matrix, data.frame)
+–over which the second dimension (columns) will be iterated</p></td>
+    </tr>
+    <tr>
+      <th>.f</th>
+      <td><p>Action to apply to each element of <code>.data</code>. The action can be
+  articulated in one of the four following ways:</p><ol>
+<li><p>supplying a function object (e.g., <code>mean</code>)</p></li>
+<li><p>defining a function (in-line; e.g., <code>function(x) mean(x)</code>)</p></li>
+<li><p>specifying a formula-like call where '.x' is assumed to be the iterated
+  over element of <code>.data</code> (e.g., <code>~ mean(.x)</code>)</p></li>
+<li><p>providing a name or position of <code>.data</code> to return (e.g.,
+  <code>1</code>, <code>"varname"</code>, etc.)</p></li>
+</ol></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Other values passed to function call.</p></td>
+    </tr>
+    </table>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A character vector</p>
+<p>A numeric vector</p>
+<p>A logical vector</p>
+<p>An integer vector</p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='lap.html'>lap</a></code>  <code><a href='dap.html'>dap</a></code></p>
+<p>Other vap: <code><a href='vapr.html'>vapr</a></code>, <code><a href='vap.html'>vap</a></code></p></div>
+    
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <div id="tocnav">
-      <h2>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-        <li><a href="#dapr-004">0.0.4</a></li>
-        <li><a href="#dapr-003">0.0.3</a></li>
-        <li><a href="#dapr-002">0.0.2</a></li>
-        <li><a href="#dapr-001">0.0.1</a></li>
-      </ul>
-    </div>
-  </div>
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#value">Value</a></li>
 
+      <li><a href="#see-also">See also</a></li>
+          </ul>
+
+  </div>
 </div>
 
       <footer>

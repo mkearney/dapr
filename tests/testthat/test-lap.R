@@ -12,6 +12,9 @@ test_that("list apply functions", {
   min <- 3
   expect_true(is.list(lap(d[-1], ~ round(.x, min))))
   expect_true(is.list(lap(d[-1], round, digits = 3)))
+  expect_true(is.list(lapr(d, paste)))
+  expect_equal(length(lapr(d, paste)), nrow(d))
+  expect_equal(length(lapc(d, paste)), ncol(d))
 
   expect_true(is.list(ilap(1:10, ~ paste0(letters[.i], rev(LETTERS)[.i]))))
   expect_equal(nchar(ilap(1:10, ~ paste0(letters[.i], rev(LETTERS)[.i]))[[1]]), 2)

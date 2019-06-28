@@ -42,7 +42,9 @@
 <meta property="og:title" content="lap: List apply functions — lap" />
 
 <meta property="og:description" content="Function(s) that apply expressions to input data objects and return lists.
-lap: Iterate over input and return list(s)" />
+lap: Iterate over input and return list(s)
+lapr: Iterate over input rows and return list(s)
+lapr: Iterate over input columbs and return list(s)" />
 
 <meta property="og:image" content="https://dapr.mikewk.com/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -123,10 +125,18 @@ lap: Iterate over input and return list(s)" />
     
     <p>Function(s) that apply expressions to input data objects and return lists.</p>
 <p>lap: Iterate over input and return list(s)</p>
+<p>lapr: Iterate over input rows and return list(s)</p>
+<p>lapr: Iterate over input columbs and return list(s)</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>lap</span>(<span class='no'>.data</span>, <span class='no'>.f</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>lap</span>(<span class='no'>.data</span>, <span class='no'>.f</span>, <span class='no'>...</span>)
+
+<span class='fu'>lapr</span>(<span class='no'>.data</span>, <span class='no'>.f</span>, <span class='no'>...</span>)
+
+<span class='fu'>lapc</span>(<span class='no'>.data</span>, <span class='no'>.f</span>, <span class='no'>...</span>)
+
+<span class='fu'>lap2</span>(<span class='no'>.x</span>, <span class='no'>.y</span>, <span class='no'>.f</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -148,6 +158,14 @@ input data e.g., <code>~ mean(.x)</code>, or an in-line function definition e.g.
     <tr>
       <th>...</th>
       <td><p>Other values passed to function call.</p></td>
+    </tr>
+    <tr>
+      <th>.x</th>
+      <td><p>First data vector input (for lap2)</p></td>
+    </tr>
+    <tr>
+      <th>.y</th>
+      <td><p>Second data vector input (for lap2)</p></td>
     </tr>
     </table>
     
@@ -275,6 +293,85 @@ input data e.g., <code>~ mean(.x)</code>, or an in-line function definition e.g.
 #&gt; 
 #&gt; $carb
 #&gt; [1] "4" "4" "1" "1" "2"
+#&gt; </div><div class='input'>
+<span class='co'>## map over two vectors</span>
+<span class='fu'>lap2</span>(<span class='no'>letters</span>, <span class='no'>LETTERS</span>, ~ <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/paste'>paste0</a></span>(<span class='no'>.x</span>, <span class='no'>.y</span>, <span class='no'>.x</span>, <span class='no'>.y</span>))</div><div class='output co'>#&gt; [[1]]
+#&gt; [1] "aAaA"
+#&gt; 
+#&gt; [[2]]
+#&gt; [1] "bBbB"
+#&gt; 
+#&gt; [[3]]
+#&gt; [1] "cCcC"
+#&gt; 
+#&gt; [[4]]
+#&gt; [1] "dDdD"
+#&gt; 
+#&gt; [[5]]
+#&gt; [1] "eEeE"
+#&gt; 
+#&gt; [[6]]
+#&gt; [1] "fFfF"
+#&gt; 
+#&gt; [[7]]
+#&gt; [1] "gGgG"
+#&gt; 
+#&gt; [[8]]
+#&gt; [1] "hHhH"
+#&gt; 
+#&gt; [[9]]
+#&gt; [1] "iIiI"
+#&gt; 
+#&gt; [[10]]
+#&gt; [1] "jJjJ"
+#&gt; 
+#&gt; [[11]]
+#&gt; [1] "kKkK"
+#&gt; 
+#&gt; [[12]]
+#&gt; [1] "lLlL"
+#&gt; 
+#&gt; [[13]]
+#&gt; [1] "mMmM"
+#&gt; 
+#&gt; [[14]]
+#&gt; [1] "nNnN"
+#&gt; 
+#&gt; [[15]]
+#&gt; [1] "oOoO"
+#&gt; 
+#&gt; [[16]]
+#&gt; [1] "pPpP"
+#&gt; 
+#&gt; [[17]]
+#&gt; [1] "qQqQ"
+#&gt; 
+#&gt; [[18]]
+#&gt; [1] "rRrR"
+#&gt; 
+#&gt; [[19]]
+#&gt; [1] "sSsS"
+#&gt; 
+#&gt; [[20]]
+#&gt; [1] "tTtT"
+#&gt; 
+#&gt; [[21]]
+#&gt; [1] "uUuU"
+#&gt; 
+#&gt; [[22]]
+#&gt; [1] "vVvV"
+#&gt; 
+#&gt; [[23]]
+#&gt; [1] "wWwW"
+#&gt; 
+#&gt; [[24]]
+#&gt; [1] "xXxX"
+#&gt; 
+#&gt; [[25]]
+#&gt; [1] "yYyY"
+#&gt; 
+#&gt; [[26]]
+#&gt; [1] "zZzZ"
 #&gt; </div><div class='input'>
 </div></pre>
   </div>
